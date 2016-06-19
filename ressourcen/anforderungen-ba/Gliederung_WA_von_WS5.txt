@@ -1,0 +1,59 @@
+
+Gliederungsvorschlag ("Leitfaden") für Bachelorarbeit/Diplomarbeit/Masterarbeit
+=================================================================================
+
+Einleitungsteil:
+----------------
+
+- Einführung, Hinführung zum Thema, evtl. kurze Vorstellung des Umfeldes, wo die Arbeit entsteht (Übergeordnetes Forschungsprojekt bzw. -vorhaben bei hochschulinternen Themen oder kurze Charakterisierung des Praxispartners bei externen Themen)  
+
+- Analyse der Aufgabenstellung
+
+- (wissenschaftliche) Hauptziele der Arbeit (zuerst aus Interessensicht der Hochschule bzw. Wissenschaft und in zweiter Instanz aus der Sicht des externen Unternehmens)
+
+- derzeitiger Stand, Was gehört zum Thema?
+
+- Was gehört nicht zum Thema (Abgrenzung)
+
+- Was kann der Leser in den folgenden Kapiteln erwarten (Aufbau der Arbeit)?
+
+Hauptteil:
+-----------
+
+- Theoretisches Fundament
+	zutreffende Modelle, Konzepte, Methoden, Verfahren, Arbeit mit Primärliteratur
+
+- Vorstellung von Lösungsvarianten für die gesteckten Ziele
+	Charakterisierung, Wertung Aufwand/Nutzen, Vor- und Nachteile
+
+- Favorisierung einer der Varianten 
+	Darstellung des Firmenumfeldes, evtl. deswegen Begründung der ausgewählten Variante
+
+- Realisierung (eigener schöpferischer Anteil)
+	softwaretechnische Beschreibung der Lösung, Fallbeispiel nicht vergessen
+
+Schlussteil:
+------------
+
+- Zusammenfassung und Ausblick
+	Prägnante Darstellung der Ergebnisse
+	Kritische Wertung der eigenen Arbeit
+	Welche Ansätze und Hinweise gibt es für weiterführende (nächste) Arbeiten?
+
+
+
+Allg. Hinweis: Diese Stichpunkte sind als Anregung für die eigene Gliederung zu sehen. Ich habe mit Absicht darauf verzichtet, eine Dezimalgliederung vorzuschlagen. Diese müssen Sie sich selbst überlegen.
+
+
+Was ist zu vermeiden:
+----------------------
+
+- Eine Diplomarbeit/Bachelorarbeit darf nicht zu 95% als die Dokumentation eines SW-Projektes verstanden werden (Das wäre zu wenig und zu speziell)
+
+- Wenn notwendig und sinnvoll, dann: Pflichtenheft, Benutzerhandbuch, Umfangreichen Sourcode nach Möglichkeit als Anhang zu führen
+
+- Beim Beschreiben des Fallbeispieles sollte nicht in die Ausdrucksformen eines detaillierten Tätigkeitsberichtes verfallen werden (für einen Beleg war dies während Ihres Studiums bisher immer noch akzeptabel)
+
+Mit freundlichen Grüßen
+
+Autor: W. Schubert  Stand: April 2011

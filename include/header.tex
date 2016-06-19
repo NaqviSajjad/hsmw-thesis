@@ -1,0 +1,95 @@
+%compiler xetex oder pdflatex
+\usepackage{ifxetex}
+\ifxetex
+	\usepackage{fontspec}
+\else
+	\usepackage[utf8]{inputenc}
+\fi
+\usepackage[babel]{microtype}%
+\usepackage{lmodern}%
+
+%%Package and Author Commands
+\usepackage{xparse}%
+\usepackage{etoolbox}%
+\let\defaultNewtoggle\newtoggle
+\RenewDocumentCommand \newtoggle {sm} {%
+	\defaultNewtoggle{#2}
+	\IfBooleanTF{#1}{\toggletrue{#2}}{\togglefalse{#2}}
+}
+\usepackage{excludeonly}
+
+%%Tabellen, Aufzählungen
+\usepackage[inline]{enumitem}%				customizing enumerate, itemize and description environment
+\setlist[itemize]{topsep=-11pt}%
+\setlist[enumerate]{topsep=-11pt}%
+
+\usepackage{array}%					tabular extension: correction of columnwidth, custom column definition, array env, etc.
+\usepackage{tabularx}%				X-row with content fitting calculated columnwith 
+\usepackage[flushleft]{threeparttable}% tablenotes
+
+\newcolumntype{C}{>{$}c<{$}}
+\newcolumntype{L}{>{$}l<{$}}
+\newcolumntype{R}{>{$}r<{$}}
+\newcommand{\as}[1]{\renewcommand\arraystretch{#1}}
+\setlength{\extrarowheight}{.5ex}%	zusätzlicher vertikaler Leerraum über jeder Zeile
+
+\usepackage{pgfplotstable}%			Generates table from .csv
+\usepackage{booktabs}%				horizontal lines interact with vertical lines
+\usepackage{arydshln}%				gestrichelte horizontale linien
+\setlength\dashlinedash{0.1pt}
+\setlength\dashlinegap{1.3pt}
+
+
+%%Mathe
+\usepackage{eurosym}%
+\usepackage[
+    decimalsymbol=comma,
+    loctolang={DE:ngerman,UK:english},
+	detect-weight=true,
+	binary-units=true,
+]{siunitx}%
+\DeclareSIUnit{\EUR}{\text{\euro}}
+
+
+%%Abbildungen, Fliesumgebung
+\usepackage{float}%					H float option to keep float in place
+\usepackage[section]{placeins}%		\FloatBarrier command, [section] places \FloatBarrier before each section automatically
+\makeatletter
+	\addto\@floatboxreset{\centering}%	centering all floats
+\makeatother
+
+\usepackage{subcaption}%
+\usepackage{caption}%				captions for subfigures
+
+\newlength{\tmpWidth}%				scale graphics ignoring original ratio
+\newlength{\tmpHeight} 	
+\newcommand{\includeScaledWidthHeightGraphics}[3]{%
+	\settowidth{\tmpWidth}{\includegraphics{#3}}
+	\settoheight{\tmpHeight}{\includegraphics{#3}}
+	\includegraphics[width=#1\tmpWidth, height=#2\tmpHeight]{#3}
+}
+
+%%Referenzen, Abkürzungen, Todo, Kommentare
+\usepackage{cleveref}
+\crefname{listing}{Listing}{Listings}
+\Crefname{listing}{Listing}{Listings}
+\addto\extrasngerman{% 
+	\def\lstnumberautorefname{Zeile}% 
+}
+\renewcommand{\cref}[1]{\autoref{#1}}%	TeXstudio unterstützt kein \autoref, sondern nur \cref
+
+\usepackage[printonlyused, withpage]{acronym}
+
+\usepackage[obeyFinal, colorinlistoftodos]{todonotes}
+\usepackage{comment}%			comment-out environment
+\usepackage{xspace}%			provides \xspace command for "intelligent" spaces in text
+
+
+%%Zitieren
+\usepackage{bibgerm}%			german natbib styles
+
+%Autocomplete von TexStudio überzeugen, dass folgende Pakete geladen sind:
+\iffalse
+	\usepackage{glossaries}
+	\usepackage{hyperref}
+\fi
