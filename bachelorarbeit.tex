@@ -1,0 +1,44 @@
+\documentclass[hypertext, hyphens, glossary]{HSMW-Thesis}
+%\documentclass[final, hypertext, hyphens, glossary]{HSMW-Thesis}
+\input{include/header}
+\input{include/listings}
+\input{include/glossar}
+\input{include/hyphenation}
+\input{include/meta}
+\input{include/abkz}
+
+\includeonly{%
+	include/kapitel/01einleitung,
+	include/kapitel/02grundlagen,
+	include/kapitel/03hauptteil,
+	include/kapitel/04praxis,
+	include/kapitel/05ergebn,
+}
+\excludeonly{%
+	include/kapitel/02grundlagen,
+	include/kapitel/03hauptteil,
+	include/kapitel/04praxis,
+	include/kapitel/05ergebn,
+}
+
+\begin{document}
+\listoftodos[ToDo]
+\begin{Referat}
+\input{include/kapitel/00abstract}
+\end{Referat}
+%\begin{Vorwort}
+%\end{Vorwort}
+
+\Hauptteil
+\include{include/kapitel/01einleitung}
+\include{include/kapitel/02grundlagen}
+\include{include/kapitel/03hauptteil}
+\include{include/kapitel/04praxis}
+\include{include/kapitel/05ergebnis}
+
+%%\Anhang
+%%%\chapter{}
+\bibliographystyle{geralpha}
+\bibliography{include/bachelorarbeit}
+\printabkzverz
+\end{document}

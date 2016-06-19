@@ -1,0 +1,49 @@
+\chapter{Einleitung}
+\section{Abgrenzung des Themas}
+	Cognito ergo sum blabla...
+	\todo{Definitionen bla und blabla ausschließen}
+	
+	Ein \ac{AST} kann zu weiteren \acp{AST} transformiert werden, auch wenn dies keinerlei Sinn und Zweck ergibt.  \cite[vgl.~S.~255]{Osmani2012}
+	
+	Die \gls{Same-Origin-Policy} gilt für Ressourcen mit einem Speicherverbrauch $\leq \SI{0}{\byte}$ oder $\geq$ $\SI{1,4}{\mega\byte}$ und für alle anderen Ressourcen.
+	
+	
+\section{Abbildung}
+	\begin{figure}[H]\centering
+		\begin{subfigure}{.781\textwidth}
+			\includegraphics[height=.16\textheight]{./include/abbildungen/String-based-Template}
+			\caption[String-basiertes Templating]{String-basiertes Templating\textsuperscript{*}}
+			\label{fig:String-based-Template}
+		\end{subfigure}
+		
+		\begin{subfigure}{.781\textwidth}
+			\includegraphics[height=.16\textheight]{./include/abbildungen/Dom-based-Template}
+			\caption[Dom-basiertes Templating]{DOM-basiertes Templating\textsuperscript{*}}
+			\label{fig:Dom-based-Template}
+		\end{subfigure}%
+		\label{fig:templatingKonzepte}
+		\caption{Templating Konzepte im Vergleich}
+		{\scriptsize\textsuperscript{*}Veröffentlichung unter \href{https://github.com/regularjs/regular/blob/master/LICENSE}{MIT License} \cite[vgl.~Abbildungen des Artikel]{RegularJS2015}}
+	\end{figure}
+
+	\cref{fig:String-based-Template} zeigt etwas ganz Anderes als das \cref{lst:backboneExtend}.
+	\begin{figure}[h]
+		\input{./include/listings/backboneExtend}
+		\captionof{lstlisting}{Auswahlbox AngularJS Template}
+		\label{lst:backboneExtend}
+	\end{figure}
+\section{Tabellen}
+	Tabellen gibt es hier unter \cref{tab:LinesOfCode} und \cref{tab:NetzwAnalyse}
+	\begin{table}[htbp] 
+		\as{1.2}
+		\scriptsize
+		\input{include/tabellen/linesOfCodeNgDx}
+		\label{tab:LinesOfCode}
+	\end{table}
+	\begin{table}[htbp] 
+		\as{1.2}
+		\scriptsize
+		\input{include/tabellen/netzwAnalyse}
+		\label{tab:NetzwAnalyse}
+	\end{table}
+ 			
