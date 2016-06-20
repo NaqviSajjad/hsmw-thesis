@@ -1,0 +1,74 @@
+\ProvidesPackage{HSMW-Logo}[2015/09/25 (Klaus Dohmen)]
+
+\newif\ifjubilogo
+\jubilogofalse
+
+\RequirePackage{ngerman}
+\RequirePackage{eso-pic}
+\RequirePackage{ifthen}
+\RequirePackage{graphicx}
+\RequirePackage{everypage}
+\RequirePackage{scrbase}
+
+\DeclareOption{all}{\def\@all{}}
+\DeclareOption{blueheadings}{\def\@hsmwcolor{true}}
+\DeclareOption{150}{\jubilogotrue}
+\ProcessOptions
+
+\ifthenelse{\isundefined{\@all}}{%
+\RequirePackage[top=35mm,bottom=35mm,left=24mm,right=26mm,footnotesep=\baselineskip]{geometry}
+}{%
+\RequirePackage[top=46mm,bottom=35mm,left=24mm,right=26mm,footnotesep=\baselineskip]{geometry}
+}
+
+\ifthenelse{\isundefined{\@hsmwcolor}}{}{%
+\@ifpackageloaded{scrbase}{%
+\RequirePackage{xcolor}
+\providecolor{HSMW-Blau}{RGB}{47,106,174}
+\addtokomafont{disposition}{\color{HSMW-Blau}}}{}
+}
+
+\newcounter{mypage}
+\setcounter{mypage}{0}
+
+\ifpdfoutput{%
+\AddEverypageHook{%
+\stepcounter{mypage}
+\AddToShipoutPicture*{%
+\ifthenelse{\value{mypage}=1}{%
+\ifjubilogo
+\put(382,733){\includegraphics[width=56mm, viewport = 0 0 215 122,
+  clip]{HSMW-Logo-150.pdf}}
+\else
+\put(386,747){\includegraphics[width=56mm, viewport = 5 6 280 131,
+  clip]{HSMW-Logo.pdf}}
+\fi
+}{%
+\ifthenelse{\isundefined{\@all}}{}{%
+\ifjubilogo
+\put(419,731){\includegraphics[width=45mm, viewport = 0 -25 215 122,
+  clip]{HSMW-Logo-150.pdf}}
+\else
+\put(423,745){\includegraphics[width=45mm, viewport = 5 -19 280 131,
+  clip]{HSMW-Logo.pdf}}
+\fi
+}}}}
+}{%
+\AddEverypageHook{%
+\AddToShipoutPicture*{%
+\ifthenelse{\value{mypage}=1}{%
+\ifjubilogo
+\put(383,731){\includegraphics[width=55.5mm]{HSMW-Logo-150.ps}}
+\else
+\put(386,745){\includegraphics[width=55.5mm]{HSMW-Logo.ps}}
+\fi
+}%
+{\ifthenelse{\isundefined{\@all}}{}{%
+\ifjubilogo
+\put(419,744){\includegraphics[width=44.75mm]{HSMW-Logo-150.ps}}
+\else
+\put(422,758){\includegraphics[width=44.75mm]{HSMW-Logo.ps}}
+\fi
+}}}}}
+
+\endinput

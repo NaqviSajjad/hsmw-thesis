@@ -1,0 +1,607 @@
+\ProvidesPackage{beamerthemeMittweida}[2015/09/25 (Klaus Dohmen)]
+
+\mode<presentation>
+
+\RequirePackage[english,ngerman]{babel}
+\RequirePackage{lmodern}
+\RequirePackage{xkeyval}
+\RequirePackage{ifthen}
+\RequirePackage{pgfpages}
+\RequirePackage[absolute,overlay]{textpos}
+\RequirePackage[newcommands]{ragged2e}
+\RequirePackage{tikz}
+
+\TPGrid{100}{100}
+
+\definecolor{Balkenfarbe}{RGB}{42,107,183}
+\definecolor{Rahmenfarbe}{RGB}{41,107,183}
+\colorlet{Strukturfarbe}[RGB]{Rahmenfarbe!90!black}
+\colorlet{Titelfarbe}[RGB]{Balkenfarbe!50!darkgray}
+\setbeamercolor{section in head/foot}{fg=white!80!Strukturfarbe,bg=}
+\def\@slogan{DIE HOCHSCHULE MIT 150-J\"AHRIGER TRADITION}
+
+\pgfdeclareimage[width=\paperwidth,height=\paperheight]{Titelseite}{Hochschule1.png}
+\pgfdeclareimage[width=\paperwidth,height=\paperheight]{Hintergrund}{Hochschule1_.png}
+\pgfdeclareimage[width=2cm,height=1.58cm]{logo}{Hochschul-Logo.png}
+
+\setbeamersize{sidebar width right=2.85cm}
+\newlength{\dreiviertelpaperwidth}
+\setlength{\dreiviertelpaperwidth}{0.75\paperwidth}
+\newlength{\howmuchraisebox}
+\setlength{\howmuchraisebox}{10pt}
+\newlength{\titlelength}
+\setlength{\titlelength}{.715\paperwidth}
+
+\def\mw@seite{}
+\def\mw@trennung{\,/\,}
+\newboolean{mw@generalcontents}
+\setboolean{mw@generalcontents}{false}
+\newif\ifmw@contents
+\mw@contentsfalse
+\newif\ifarrayloaded
+\arrayloadedfalse
+
+\AtBeginDocument{\@ifpackageloaded{array}{\arrayloadedtrue}{\arrayloadedfalse}}
+\AtBeginDocument{\@ifpackageloaded{tkz-graph}{%
+\renewcommand*{\VertexBallColor}{Strukturfarbe}
+\renewcommand*{\VertexTextColor}{white}
+\renewcommand*{\VertexFillColor}{Strukturfarbe}
+\renewcommand*{\VertexLineColor}{Strukturfarbe!75!black}
+\renewcommand*{\EdgeArtColor}{Strukturfarbe}
+\renewcommand*{\EdgeFillColor}{Strukturfarbe}
+\renewcommand*{\EdgeColor}{Strukturfarbe!75!black}
+\renewcommand*{\VertexDarkFillColor}{Strukturfarbe}
+}{}}
+
+\setbeamertemplate{frametitle}{%
+\begin{beamercolorbox}[wd=\paperwidth,ht=5ex, leftskip=11pt, rightskip=11pt]{frametitle}
+  \usebeamerfont{titlelike}\tabular{@{}p{\titlelength}}
+  \raggedright\ifarrayloaded\insertframetitle\\[-2.3ex]\else\insertframetitle\\[-1.3ex]\fi
+  \usebeamerfont{framesubtitle}%
+  \usebeamercolor[fg]{framesubtitle}%
+  \raggedright\insertframesubtitle%
+  \endtabular
+\end{beamercolorbox}%
+\vspace{-0.25cm}
+}
+
+\setbeamersize{text margin left=12pt}
+\setbeamersize{text margin right=12pt}
+\newlength{\graphicswidth}
+\setlength{\graphicswidth}{\textwidth}
+\newlength{\graphicsheight}
+\setlength{\graphicsheight}{0.675\paperheight}
+\newlength{\mw@pbox}
+\setlength{\mw@pbox}{8.5cm}
+\newlength{\mw@vskip}
+\setlength{\mw@vskip}{0cm}
+
+\newif\ifmw@hs
+\mw@hstrue
+\newif\ifmw@mb
+\mw@mbfalse
+\newif\ifmw@mni
+\mw@mnifalse
+\newif\ifmw@ww
+\mw@wwfalse
+\newif\ifmw@sa
+\mw@safalse
+\newif\ifmw@me
+\mw@mefalse
+\newif\ifmw@extratitle
+\mw@extratitlefalse
+\newif\ifnewslogan
+\newsloganfalse
+
+\DeclareOptionX{plain}{%
+\ifthenelse{\isundefined{\mw@extratitel}\and\isundefined{\mw@extrabild}}{
+\def\mw@standard{}%
+\definecolor{Balkenfarbe}{RGB}{5,109,179}
+\definecolor{Rahmenfarbe}{RGB}{47,106,174}
+\colorlet{Strukturfarbe}[RGB]{Rahmenfarbe}
+\colorlet{Titelfarbe}[RGB]{Rahmenfarbe!95!black}
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{sidebar canvas right}{}%
+\pgfdeclareimage[width=\paperwidth,height=\paperheight]{Titelseite}{Hochschule2.png}%
+\pgfdeclareimage[width=\paperwidth,height=\paperheight]{Hintergrund}{Hochschule2_.png}%
+\setbeamersize{sidebar width right=0.5cm}\setlength{\dreiviertelpaperwidth}{0.735\paperwidth}%
+\setlength{\graphicswidth}{\textwidth}
+\setbeamercolor{section in head/foot}{fg=black!50,bg=}
+\setlength{\howmuchraisebox}{13pt}
+\setbeamertemplate{frametitle}{%
+\begin{beamercolorbox}[wd=\paperwidth,ht=4.5ex, leftskip=11pt, rightskip=11pt]{frametitle}
+  \usebeamerfont{titlelike}\tabular{@{}p{.7\paperwidth}}
+  \raggedright\ifarrayloaded\insertframetitle\\[-2.6ex]\else\insertframetitle\\[-1.6ex]\fi
+  \usebeamerfont{framesubtitle}%
+  \usebeamercolor[fg]{framesubtitle}%
+  \raggedright\insertframesubtitle%
+  \endtabular
+\end{beamercolorbox}
+\vspace{-0.2cm}
+}
+\setbeamerfont{title page}{size=\Large}
+\setbeamertemplate{title page}{%
+\vskip\mw@vskip\parbox{\mw@pbox}{%
+\begin{center}
+{\textcolor{Strukturfarbe}{{\textbf{\inserttitle}}}} \\[3ex]
+\ifthenelse{\equal{\insertsubtitle}{\empty}}{}{%
+\normalsize
+\textcolor{Strukturfarbe}{\textbf{\insertsubtitle}} \\[3.5ex]}
+\normalsize
+\textcolor{black!80}{\insertauthor}\\[.1ex]
+\ifthenelse{\equal{\insertinstitute}{\empty}}{\vspace{3ex}}{\textcolor{black!80}{\insertinstitute}\\[3.5ex]}
+\ifthenelse{\equal{\insertdate}{\empty}}{\textcolor{black!80}{\today}}{\textcolor{black!80}{\insertdate}}
+\end{center}
+}}}{}}
+
+\DeclareOptionX{Fakultaet1}{%
+\ifthenelse{\isundefined{\mw@standard}}{
+\def\@slogan{Fakult\"at Ingenieurwissenschaften}
+\mw@hsfalse
+\mw@mbtrue
+\mw@mnifalse
+\mw@wwfalse
+\mw@safalse
+\mw@mefalse
+\setlength{\titlelength}{.7\paperwidth}
+\setbeamersize{sidebar width right=3.05cm}
+\setlength{\dreiviertelpaperwidth}{0.725\paperwidth}
+\definecolor{Rahmenfarbe}{RGB}{0,81,147}
+\colorlet{Strukturfarbe}[RGB]{Rahmenfarbe!90!black}
+\definecolor{Balkenfarbe}{RGB}{42,107,183}
+\colorlet{Titelfarbe}[RGB]{Balkenfarbe!50!darkgray}
+\ifthenelse{\isundefined{\mw@extrabild}\and\isundefined{\mw@extratitel}}{
+\pgfdeclareimage[width=\paperwidth,height=\paperheight]{Titelseite}{Fakultaet1.png}
+}{}
+\pgfdeclareimage[width=\paperwidth,height=\paperheight]{Hintergrund}{Fakultaet1_.png}
+\pgfdeclareimage[width=2cm,height=1.58cm]{logo}{Fakultaet1-Logo.png}
+}{}}
+
+\DeclareOptionX{Fakultaet2}{%
+\ifthenelse{\isundefined{\mw@standard}}{
+\def\@slogan{Fakult\"at Angewandte Computer- und Biowissenschaften}
+\mw@hsfalse
+\mw@mbfalse
+\mw@mnitrue
+\mw@wwfalse
+\mw@safalse
+\mw@mefalse
+\setlength{\titlelength}{.7\paperwidth}
+\setbeamersize{sidebar width right=3.05cm}
+\setlength{\dreiviertelpaperwidth}{0.725\paperwidth}
+\definecolor{Rahmenfarbe}{RGB}{239,127,0}
+\colorlet{Balkenfarbe}[RGB]{Rahmenfarbe!90!red}
+\colorlet{Strukturfarbe}[RGB]{Rahmenfarbe!95!black}
+\colorlet{Titelfarbe}[RGB]{Strukturfarbe}
+\ifthenelse{\isundefined{\mw@extrabild}\and\isundefined{\mw@extratitel}}{
+\pgfdeclareimage[width=\paperwidth,height=\paperheight]{Titelseite}{Fakultaet2.png}
+}{}
+\pgfdeclareimage[width=\paperwidth,height=\paperheight]{Hintergrund}{Fakultaet2_.png}
+\pgfdeclareimage[width=2cm,height=1.58cm]{logo}{Fakultaet2-Logo.png}
+}{}}
+
+\DeclareOptionX{Fakultaet3}{%
+\ifthenelse{\isundefined{\mw@standard}}{
+\def\@slogan{Fakult\"at Wirtschaftsingenieurwesen}
+\mw@hsfalse
+\mw@mbfalse
+\mw@mnifalse
+\mw@wwtrue
+\mw@safalse
+\mw@mefalse
+\setlength{\titlelength}{.7\paperwidth}
+\setbeamersize{sidebar width right=3.05cm}
+\setlength{\dreiviertelpaperwidth}{0.725\paperwidth}
+\definecolor{Rahmenfarbe}{RGB}{53,143,46}
+\definecolor{Balkenfarbe}{RGB}{53,142,46}
+\colorlet{Strukturfarbe}[RGB]{Rahmenfarbe!95!black}
+\colorlet{Titelfarbe}[RGB]{Balkenfarbe!65!darkgray}
+\ifthenelse{\isundefined{\mw@extrabild}\and\isundefined{\mw@extratitel}}{
+\pgfdeclareimage[width=\paperwidth,height=\paperheight]{Titelseite}{Fakultaet3.png}
+}{}
+\pgfdeclareimage[width=\paperwidth,height=\paperheight]{Hintergrund}{Fakultaet3_.png}
+\pgfdeclareimage[width=2cm,height=1.58cm]{logo}{Fakultaet3-Logo.png}
+}{}}
+
+\DeclareOptionX{Fakultaet4}{%
+\ifthenelse{\isundefined{\mw@standard}}{
+\def\@slogan{Fakult\"at Soziale Arbeit}
+\mw@hsfalse
+\mw@mbfalse
+\mw@mnifalse
+\mw@wwfalse
+\mw@satrue
+\mw@mefalse
+\setlength{\titlelength}{.7\paperwidth}
+\setbeamersize{sidebar width right=3.05cm}
+\setlength{\dreiviertelpaperwidth}{0.725\paperwidth}
+\definecolor{Rahmenfarbe}{RGB}{116,11,100}
+\definecolor{Balkenfarbe}{RGB}{116,11,100}
+\colorlet{Strukturfarbe}[RGB]{Rahmenfarbe}
+\colorlet{Titelfarbe}[RGB]{Balkenfarbe!50!darkgray}
+\ifthenelse{\isundefined{\mw@extrabild}\and\isundefined{\mw@extratitel}}{
+\pgfdeclareimage[width=\paperwidth,height=\paperheight]{Titelseite}{Fakultaet4.png}
+}{}
+\pgfdeclareimage[width=\paperwidth,height=\paperheight]{Hintergrund}{Fakultaet4_.png}
+\pgfdeclareimage[width=2cm,height=1.58cm]{logo}{Fakultaet4-Logo.png}
+}{}}
+
+\DeclareOptionX{Fakultaet5}{%
+\ifthenelse{\isundefined{\mw@standard}}{
+\def\@slogan{Fakult\"at Medien}
+\mw@hsfalse
+\mw@mbfalse
+\mw@mnifalse
+\mw@wwfalse
+\mw@safalse
+\mw@metrue
+\setlength{\titlelength}{.7\paperwidth}
+\setbeamersize{sidebar width right=3.05cm}
+\setlength{\dreiviertelpaperwidth}{0.72\paperwidth}
+\definecolor{Balkenfarbe}{RGB}{122,181,29}
+\definecolor{Rahmenfarbe}{RGB}{122,181,29}
+\colorlet{Strukturfarbe}[RGB]{Rahmenfarbe!80!black}
+\colorlet{Titelfarbe}[RGB]{Strukturfarbe!95!black}
+\ifthenelse{\isundefined{\mw@extrabild}\and\isundefined{\mw@extratitel}}{
+\pgfdeclareimage[width=\paperwidth,height=\paperheight]{Titelseite}{Fakultaet5.png}
+}{}
+\pgfdeclareimage[width=\paperwidth,height=\paperheight]{Hintergrund}{Fakultaet5_.png}
+\pgfdeclareimage[width=2cm,height=1.58cm]{logo}{Fakultaet5-Logo.png}
+}{}}
+
+\DeclareOptionX{MNI}{\ExecuteOptionsX{Fakultaet2}}
+\DeclareOptionX{CB}{\ExecuteOptionsX{Fakultaet2}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\DeclareOptionX{english}{\AtBeginDocument{\selectlanguage{english}}}
+\DeclareOptionX{progressbar}[frame]{\def\mw@Fortschrittsbalken{#1}}
+\DeclareOptionX{totalpages}{\def\mw@lastpage{}}
+\DeclareOptionX{prefix}{\def\mw@seite{#1}}
+\DeclareOptionX{delimiter}{\ifthenelse{\equal{#1}{\empty}}{\def\mw@trennung{\,/\,}}{\def\mw@trennung{#1}}}
+\DeclareOptionX{notitlegraphic}{\def\mw@notitlegraphic{}}
+\DeclareOptionX{navigation}{\def\mw@navigation{}}
+\DeclareOptionX{contents}{\mw@contentstrue\setboolean{mw@generalcontents}{true}}
+\DeclareOptionX{slogan}[\@slogan]{\ifthenelse{\equal{#1}{none}}{\AtEndOfPackage{\slogan{}}}{\AtEndOfPackage{\slogan{#1}}}}
+\DeclareOptionX{colthm}{\def\mw@farbig{}\setbeamersize{text margin left=13pt}\setbeamersize{text margin right=14pt}}
+\DeclareOptionX{colmath}{\def\mw@colfor{}}
+\DeclareOptionX{notitlepage}{\AtBeginDocument{\renewcommand{\titlepage}{}\renewcommand{\maketitle}{}}}
+\DeclareOptionX{titlepage}[default]{%
+\ifthenelse{\isundefined{\mw@standard}}{
+\ifthenelse{\equal{#1}{none}}{\AtBeginDocument{\renewcommand{\titlepage}{}\renewcommand{\maketitle}{}}}{%
+\ifthenelse{\equal{#1}{default}}{}{%
+\IfFileExists{#1}{%
+\def\mw@extratitel{}
+\pgfdeclareimage[width=\paperwidth,height=\paperheight]{Titelseite}{#1}
+}{\PackageError{beamerthemeMittweida.sty}{Titelseite #1 nicht gefunden}{Titelseite #1 nicht gefunden}}
+}}}{\ifthenelse{\equal{#1}{none}}{\AtBeginDocument{\renewcommand{\titlepage}{}\renewcommand{\maketitle}{}}}{}}}
+\DeclareOptionX{titlegraphic}[default]{%
+\ifthenelse{\equal{#1}{none}}{\ExecuteOptionsX{notitlegraphic}}{%
+\ifthenelse{\equal{#1}{default}}{}{
+\IfFileExists{#1}{%
+\def\mw@extrabild{}
+\mw@extratitletrue
+\pgfdeclareimage[width=\paperwidth,height=\paperheight]{Titelseite}{#1}}{\PackageError{beamerthemeMittweida.sty}%
+{Hintergrundbild #1 nicht gefunden}{Hintergrundbild #1 nicht gefunden}}
+}}{}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\slogan}[1]{\newslogantrue\def\insertslogan{\tiny\textcolor{white}{\MakeUppercase{#1}}\textcolor{Balkenfarbe}{\"A}}}
+\ProcessOptionsX*\relax
+
+\newenvironment{colthm}{%
+\begingroup
+\setbeamercolor{block title}{use=structure,fg=structure.fg,bg=structure.fg!20!bg}
+\setbeamercolor{block title alerted}{use=alerted text,fg=alerted text.fg,bg=alerted text.fg!20!bg}
+\setbeamercolor{block title example}{use=example text,fg=example text.fg,bg=example text.fg!20!bg}
+\setbeamercolor{block body}{parent=normal text,use=block title,bg=block title.bg!50!bg}
+\setbeamercolor{block body alerted}{parent=normal text,use=block title alerted,bg=block title alerted.bg!50!bg}
+\setbeamercolor{block body example}{parent=normal text,use=block title example,bg=block title example.bg!50!bg}
+}{\endgroup}
+
+\newenvironment{colmath}{%
+\begingroup
+\setbeamercolor{math text}{fg=structure,bg=}
+\addtobeamertemplate{theorem begin}{\setbeamercolor*{math text}{use={block title},fg=block title.fg}}{}
+\addtobeamertemplate{block example begin}{\setbeamercolor*{math text}{use={block title example},fg=block title example.fg}}{}
+\addtobeamertemplate{block alerted begin}{\setbeamercolor*{math text}{use={block body alerted},fg=block title alerted.fg}}{}
+\addtobeamertemplate{alerted text begin}{\setbeamercolor*{math text}{use={alerted text},fg=alerted text.fg}}{}
+\addtobeamertemplate{structure begin}{\setbeamercolor*{math text}{use={structure},fg=structure.fg}}{}
+}{\endgroup}
+
+
+\slogan{\@slogan}
+
+\ifthenelse{\isundefined{\mw@standard}}{
+\setbeamerfont{title page}{size=\large}
+\setbeamertemplate{title page}{%
+\hskip1cm\parbox{7.1cm}{% 
+{%
+\textcolor{Titelfarbe}{\raggedright\textbf{\inserttitle}}} \\[1.5ex]
+\normalsize
+\ifthenelse{\equal{\insertsubtitle}{\empty}}{}{%
+\textcolor{Titelfarbe}{\raggedright\textbf{\insertsubtitle}} \\[1.5ex]
+}
+\textcolor{Titelfarbe}{\raggedright\insertauthor}
+\ifthenelse{\equal{\insertinstitute}{\empty}}{}{\\[-.35ex] \textcolor{Titelfarbe}{\raggedright\insertinstitute}}\\[1.5ex]
+\ifthenelse{\equal{\insertdate}{\empty}}{\textcolor{Titelfarbe}{\today}}{\textcolor{Titelfarbe}{\raggedright\insertdate}}
+\ifnewslogan
+\setlength{\TPHorizModule}{1cm}
+\setlength{\TPVertModule}{\TPHorizModule}
+\begin{textblock}{10}(0,1.55) 
+\tiny
+\colorbox{Balkenfarbe}{\hspace{1.345cm}\makebox[11.243cm][l]{\textcolor{white}{\insertslogan}}}
+\end{textblock}
+\fi
+}}{}}
+
+\ifmw@extratitle
+\ifmw@hs
+\definecolor{Balkenfarbe}{RGB}{42,107,183}
+\colorlet{Titelfarbe}[RGB]{Balkenfarbe!50!darkgray}
+\definecolor{Logofarbe}{RGB}{79,137,196}
+\fi
+\ifmw@mb
+\definecolor{Logofarbe}{RGB}{0,79,149}
+\colorlet{Balkenfarbe}[RGB]{Logofarbe!92}
+\colorlet{Titelfarbe}[RGB]{Strukturfarbe}
+\fi
+\ifmw@mni
+\colorlet{Balkenfarbe}[RGB]{Rahmenfarbe!90!red}
+\definecolor{Logofarbe}{RGB}{239,124,0}
+\colorlet{Titelfarbe}[RGB]{Strukturfarbe}
+\fi
+\ifmw@ww
+\definecolor{Logofarbe}{RGB}{50,145,55}
+\colorlet{Balkenfarbe}[RGB]{Logofarbe!94!black}
+\colorlet{Titelfarbe}[RGB]{Balkenfarbe!95!black}
+\fi
+\ifmw@sa
+\definecolor{Logofarbe}{RGB}{115,14,99}
+\colorlet{Balkenfarbe}[RGB]{Logofarbe!94!black}
+\colorlet{Titelfarbe}[RGB]{Balkenfarbe!99}
+\fi
+\ifmw@me
+\definecolor{Logofarbe}{RGB}{118,183,40}
+\colorlet{Balkenfarbe}[RGB]{Logofarbe!94!black}
+\colorlet{Titelfarbe}[RGB]{Strukturfarbe!95!black}
+\fi
+\fi
+
+\ifthenelse{\isundefined{\mw@farbig}}{\def\mw@normal{}}{}
+\ifthenelse{\isundefined{\mw@navigation}}{\def\mw@nonavigation{}}{}
+
+\ifthenelse{\isundefined{\mw@normal}}{\usecolortheme{rose}}{}
+
+\setbeamercolor{structure}{fg=Strukturfarbe,bg=}
+\setbeamercolor{titlelike}{fg=Strukturfarbe,bg=}
+\setbeamercolor{titlepage}{fg=Strukturfarbe,bg=}
+
+\setbeamercolor{frametitle}{fg=Strukturfarbe,bg=}
+\setbeamercolor{framesubtitle}{fg=Strukturfarbe!65,bg=}
+
+\ifthenelse{\isundefined{\mw@colfor}}{}{\setbeamercolor{math text}{fg=structure,bg=}
+\addtobeamertemplate{theorem begin}{\setbeamercolor*{math text}{use={block title},fg=block title.fg}}{}
+\addtobeamertemplate{block example begin}{\setbeamercolor*{math text}{use={block title example},fg=block title example.fg}}{}
+\addtobeamertemplate{block alerted begin}{\setbeamercolor*{math text}{use={block body alerted},fg=block title alerted.fg}}{}
+\addtobeamertemplate{alerted text begin}{\setbeamercolor*{math text}{use={alerted text},fg=alerted text.fg}}{}
+\addtobeamertemplate{structure begin}{\setbeamercolor*{math text}{use={structure},fg=structure.fg}}{}
+}
+
+\AtBeginDocument{\@ifpackageloaded{sagetex}{%
+\lstdefinestyle{SageInput}{%
+style=DefaultSageInput,%
+keywordstyle={\color{Strukturfarbe}},%
+basicstyle={\color{Strukturfarbe!85!yellow}},%
+identifierstyle={\color{Strukturfarbe!85!yellow}},
+stringstyle={\color{Strukturfarbe!85!yellow}},
+numbers=none,%
+xleftmargin=0pt,%
+columns=flexible,
+showstringspaces=false,
+belowskip=1pt
+}
+\lstdefinestyle{SageOutput}{%
+style=DefaultSageOutput,%
+keywordstyle={\color{Strukturfarbe!50!red!80}},%
+basicstyle={\color{Strukturfarbe!50!red!80}},%
+identifierstyle={\color{Strukturfarbe!50!red!80}},%
+stringstyle={\color{Strukturfarbe!50!red!80}},%
+numbers=none,%
+xleftmargin=0pt,%
+columns=flexible,
+showstringspaces=false,
+belowskip=1pt
+}
+\renewcommand{\sagecommandlineskip}{0pt}
+\renewcommand{\sagecommandlinetextoutput}{True}
+\setlength{\sagetexindent}{0pt}
+}{}}
+
+
+%%% FONT THEME
+
+\setbeamerfont{titlelike}{series=\bfseries}
+\setbeamerfont{framesubtitle}{size=\footnotesize}
+
+%%% OUTER THEME
+
+\renewcommand{\insertshortinstitute}{}
+\renewcommand{\insertinstitute}{}
+
+\renewcommand{\institute}[2][]{\renewcommand{\insertshortinstitute}{\ifthenelse{\equal{#1}{\empty}}{\ifthenelse{\equal{#2}{\empty}}{}{#2, }}{#1, }}\ifthenelse{\equal{#2}{\empty}}{\renewcommand{\insertinstitute}{}}{\renewcommand{\insertinstitute}{#2}}}
+
+\mode<handout>{\pgfpagesuselayout{2 on 1}[a4paper, border shrink=5mm]}
+
+\let\titlepageold\titlepage
+\renewcommand{\titlepage}{\ifbeamer@inframe\titlepageold\else\maketitle\fi}
+
+\renewcommand{\maketitle}{%
+\def\mw@titelseite{}%
+\ifthenelse{\isundefined{\mw@notitlegraphic}}{\setbeamertemplate{background canvas}{%
+\pgfuseimage{Titelseite}%
+\ifthenelse{\isundefined{\mw@extrabild}}{}{%
+\hspace*{-\paperwidth}\vspace{-\paperheight}\put(25.3,78){\tikz{%
+\fill[nearly opaque,white] (0,6.855) -- (0,0.3) arc (180:270:3mm) -- (8.078,0) -- (8.078,6.855) -- cycle;
+\fill[nearly opaque,white] (10.08,0) -- (10.7,0) arc (270:360:3mm) -- (11,6.855) -- (10.08,6.855) -- cycle;
+\shade[top color=Logofarbe, bottom color=white, ultra nearly opaque] (8.078,0.005) rectangle (10.08,5); 
+}}
+\put(0,0){%
+\tikz{%
+\fill[semitransparent,white] (0,0) rectangle (8.965,9.6);
+\fill[semitransparent,white] (10.965,0) rectangle (12.8, 9.6);
+\fill[semitransparent,white] (8.965,0) rectangle (10.96587355,2.745); % vorher: (10.965, 2.745)
+}}
+%\put(255,228){\pgfuseimage{logo}}}}%
+\put(255,228.35){\pgfuseimage{logo}}}}%
+\ifbeamer@inframe\titlepage\else\frame[plain,label=current]{\titlepage}\fi% 
+\setbeamertemplate{background canvas}{\ifbeamer@plainframe\else\pgfuseimage{Hintergrund}\fi}%
+\setcounter{framenumber}{0}}{%
+\setlength{\mw@pbox}{\textwidth}\setlength{\mw@vskip}{1cm}%
+\setbeamerfont{title page}{size=\Large}
+\setbeamertemplate{title page}{%
+\vskip\mw@vskip\parbox{\mw@pbox}{%
+\begin{center}
+{\textcolor{Strukturfarbe}{{\textbf{\inserttitle}}}} \\[3ex]
+\ifthenelse{\equal{\insertsubtitle}{\empty}}{}{%
+\normalsize
+\textcolor{Strukturfarbe}{\textbf{\insertsubtitle}} \\[3.5ex]}
+\normalsize
+\textcolor{black!80}{\insertauthor}\\[.1ex]
+\ifthenelse{\equal{\insertinstitute}{\empty}}{\vspace{3ex}}{\textcolor{black!80}{\insertinstitute}\\[3.5ex]}
+\ifthenelse{\equal{\insertdate}{\empty}}{\textcolor{black!80}{\today}}{\textcolor{black!80}{\insertdate}}
+\end{center}
+}}
+\frame{\titlepage}
+}}
+
+\setbeamertemplate{background canvas}{\ifbeamer@plainframe\else\pgfuseimage{Hintergrund}\fi}
+
+\newboolean{keinBalken}
+\setboolean{keinBalken}{true}
+\newboolean{keinBeamer}
+\setboolean{keinBeamer}{true}
+\newboolean{Rahmen}
+\ifthenelse{\isundefined{\mw@Fortschrittsbalken}}{\setboolean{Rahmen}{false}}
+{\ifthenelse{\equal{\mw@Fortschrittsbalken}{frame}}{\setboolean{Rahmen}{true}}{\setboolean{Rahmen}{false}}}
+
+\mode<beamer>{\setboolean{keinBeamer}{false}}
+
+\newenvironment{progressbar}[1][frame]{%
+\setboolean{keinBalken}{false}%
+\ifthenelse{\equal{#1}{frame}}{\setboolean{Rahmen}{true}}{\setboolean{Rahmen}{false}}%
+}{%
+\ifthenelse{\isundefined{\mw@Fortschrittsbalken}}{\setboolean{Rahmen}{false}}{\ifthenelse{\equal{\mw@Fortschrittsbalken}{frame}}{\setboolean{Rahmen}{true}}{\setboolean{Rahmen}{false}}\ifthenelse{\isundefined{\mw@Fortschrittsbalken}}{\setboolean{keinBalken}{true}}{}}}
+
+\newcommand{\nextframenocontents}{\mw@contentsfalse}
+
+\newcommand{\nextframeprogressbar}[1][frame]{\progressbar[#1]}
+\newcommand{\nextframenoprogressbar}{\endprogressbar\ifthenelse{\isundefined{\mw@Fortschrittsbalken}}{\setboolean{keinBalken}{true}}{}}
+
+\let\clearpageOLD\clearpage
+\renewcommand{\clearpage}{\clearpageOLD\nextframenoprogressbar\ifthenelse{\boolean{mw@generalcontents}}{\mw@contentstrue}{}}
+
+\newsavebox{\balken}
+\newlength{\laenge}
+\newlength{\gesamt}
+\newcounter{anteilC}
+\newcounter{laengeC}
+\newcounter{gesamtC}
+\newcommand{\fortschrittsbalken}{%
+\fboxsep0pt\parbox[b]{0pt}{\textcolor{Strukturfarbe!20}{\fbox{\textcolor{Strukturfarbe}{\rule{1cm}{0.8ex}}}}}\textcolor{Strukturfarbe!20}{\fbox{\textcolor{Strukturfarbe!20}{\rule{1cm*\ratio{\laenge}{\gesamt}}{0.8ex}}}}
+}
+
+\setbeamertemplate{footline}{
+\ifthenelse{\( \isundefined{\mw@Fortschrittsbalken} \and \boolean{keinBalken} \) \or \boolean{keinBeamer}}{%
+\ifthenelse{\isundefined{\mw@normal}}{\begin{beamercolorbox}[wd=\paperwidth,leftskip=12pt,rightskip=12pt]{section in head/foot}
+  \raisebox{\howmuchraisebox}{\begin{tabular*}{0.903\paperwidth}{@{}p{\dreiviertelpaperwidth}@{\extracolsep{2cm minus 2cm}}c@{\extracolsep{2cm minus 2cm}}l@{}}
+  \insertshortinstitute \insertshortauthor & \ifthenelse{\equal{\insertshortdate}{\empty}}{\today}{\insertshortdate} & \\
+  \insertshorttitle &  \mw@seite~\insertframenumber\ifthenelse{\isundefined{\mw@lastpage}}{}{\mw@trennung\inserttotalframenumber} & 
+  \end{tabular*}}
+\end{beamercolorbox}}{\begin{beamercolorbox}[wd=\paperwidth,leftskip=11pt,rightskip=10pt]{section in head/foot}
+  \raisebox{\howmuchraisebox}{\begin{tabular*}{0.903\paperwidth}{@{}p{\dreiviertelpaperwidth}@{\extracolsep{2cm minus 2cm}}c@{\extracolsep{2cm minus 2cm}}l@{}}
+  \insertshortinstitute \insertshortauthor & \ifthenelse{\equal{\insertshortdate}{\empty}}{\today}{\insertshortdate} & \\
+  \insertshorttitle &  \mw@seite~\insertframenumber\ifthenelse{\isundefined{\mw@lastpage}}{}{\mw@trennung\inserttotalframenumber} & 
+  \end{tabular*}}
+\end{beamercolorbox}}}{%
+\ifthenelse{\equal{\beamer@startpageofappendix}{\empty} \and \boolean{Rahmen}}{
+   \setlength{\laenge}{\insertframenumber cm}
+   \setlength{\gesamt}{\inserttotalframenumber cm}
+   \setcounter{laengeC}{\insertframenumber}
+   \setcounter{gesamtC}{\inserttotalframenumber}
+}{%
+   \ifthenelse{\equal{\beamer@startpageofappendix}{\empty}}{%
+   \setlength{\laenge}{\insertpagenumber cm}
+   \setlength{\gesamt}{\beamer@endpageofdocument cm}
+   \setcounter{laengeC}{\insertpagenumber}
+   \setcounter{gesamtC}{\beamer@endpageofdocument}
+   }{%
+   \ifthenelse{\insertpagenumber < \beamer@startpageofappendix}{%
+   \setlength{\laenge}{\insertpagenumber cm}
+   \setlength{\gesamt}{\beamer@startpageofappendix cm}
+   \addtolength{\gesamt}{-1cm}
+   \setcounter{laengeC}{\insertpagenumber}
+   \setcounter{gesamtC}{\beamer@startpageofappendix}
+   \addtocounter{gesamtC}{-1}
+   }{%
+   \setlength{\laenge}{100 cm}
+   \setlength{\gesamt}{100 cm}
+   \setcounter{laengeC}{100}
+   \setcounter{gesamtC}{100}
+   }}
+   \ifthenelse{\isundefined{\mw@titelseite}}{}{%
+   \addtolength{\laenge}{-1cm}
+   \addtolength{\gesamt}{-1cm}
+   \addtocounter{laengeC}{-1}
+   \addtocounter{gesamtC}{-1}
+   }
+}
+\setcounter{anteilC}{100*\value{laengeC}/\value{gesamtC}}
+\savebox{\balken}[1cm][l]{\fortschrittsbalken}
+\date{\usebox{\balken}}
+\ifthenelse{\isundefined{\mw@normal}}{\begin{beamercolorbox}[wd=\paperwidth,leftskip=12pt,rightskip=12pt]{section in head/foot}
+  \raisebox{\howmuchraisebox}{\begin{tabular*}{0.903\paperwidth}{@{}p{\dreiviertelpaperwidth}@{\extracolsep{2cm minus 2cm}}c@{\extracolsep{2cm minus 2cm}}l@{}}
+  \insertshortinstitute \insertshortauthor & \ifthenelse{\equal{\insertshortdate}{\empty}}{\today}{\insertshortdate} & \\
+  \insertshorttitle &  \,\,\,\theanteilC\,\%  & 
+  \end{tabular*}}
+\end{beamercolorbox}}{\begin{beamercolorbox}[wd=\paperwidth,leftskip=11pt,rightskip=10pt]{section in head/foot}
+  \raisebox{\howmuchraisebox}{\begin{tabular*}{0.903\paperwidth}{@{}p{\dreiviertelpaperwidth}@{\extracolsep{2cm minus 2cm}}c@{\extracolsep{2cm minus 2cm}}l@{}}
+  \insertshortinstitute \insertshortauthor & \ifthenelse{\equal{\insertshortdate}{\empty}}{\today}{\insertshortdate} & \\
+  \insertshorttitle &  \,\,\,\theanteilC\,\% & 
+  \end{tabular*}}
+\end{beamercolorbox}}
+}
+}
+
+%%% INNER THEME
+
+\mode<beamer>{\ifthenelse{\isundefined{\mw@standard}}{\setbeamertemplate{sidebar canvas right}{%
+\vfill\ifmw@contents\vfill\vfill\hspace{1mm}\parbox{1.8cm}{\centering\Tiny\tableofcontents[currentsection,hideallsubsections]}\vfill\vfill\fi%
+\ifthenelse{\isundefined{\mw@nonavigation}}{\hspace{0.7mm}\scalebox{0.9}{\color{Strukturfarbe!55}\begin{tabular}{@{}c@{}c@{}c@{}}%
+\insertslidenavigationsymbol & \insertbackfindforwardnavigationsymbol & \insertframenavigationsymbol \\%
+\insertsubsectionnavigationsymbol & \insertsectionnavigationsymbol & \insertdocnavigationsymbol%
+\end{tabular}}%
+\vspace*{0.5cm}%
+}{\vfill}}}{}\setbeamertemplate{navigation symbols}{}}
+
+\setbeamertemplate{itemize subitem}[ball]
+\setbeamertemplate{itemize subsubitem}[circle]
+\setbeamertemplate{enumerate items}[ball]
+\setbeamertemplate{enumerate subitems}[circle]
+\setbeamertemplate{enumerate subsubitems}[circle]
+
+\renewcommand{\thefootnote}{\fnsymbol{footnote}}
+\setbeamerfont{footnote}{size=\tiny}
+\setbeamerfont{footnote mark}{size=\tiny}
+\renewcommand{\footnoterule}{\textcolor{gray!75}{\rule{1.5cm}{.3pt}\\[.5ex]}}
+\renewcommand\@makefntext[1]{\noindent\makebox[0.35em][r]{\usebeamerfont{footnote}\color{gray!75}${}^{\mbox{\@thefnmark}}\hspace{-0.05em}$}\usebeamerfont{footnote}\textcolor{gray!75}{#1}}
+\let\footnoteold\footnote
+\renewcommand\footnote[2][]{\ifthenelse{\value{footnote}=0}{\footnoteold[#1]{\vspace{2.5mm}#2}}{%
+\PackageWarningNoLine{beamerthemeMittweida.sty}{Nur eine Fussnote pro Seite erlaubt, zweite Fussnote wird ignoriert}}}
+\@addtoreset{footnote}{page}
+
+\mode<all>
+
+\endinput
+

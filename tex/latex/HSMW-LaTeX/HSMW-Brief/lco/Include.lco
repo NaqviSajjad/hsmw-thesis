@@ -1,0 +1,159 @@
+\ProvidesFile{Include.lco}[%
+  2014/04/17 letter class option]
+  
+\LetterOptionNeedsPapersize{Include}{a4}
+
+\RequirePackage{suffix}
+
+\@setplength{toaddrhpos}{23mm}
+\@setplength{toaddrwidth}{80mm}
+\@setplength{sigindent}{0mm}
+\@setplength{firstheadvpos}{11mm}
+\@setplength{toaddrvpos}{47mm}
+\@setplength{toaddrheight}{43mm}
+\@setplength{refhpos}{24mm}
+\@setplength{refvpos}{90mm}
+\@setplength{firstfootvpos}{276mm}
+\@setplength{sigbeforevskip}{1.3cm}
+
+\setlength{\oddsidemargin}{-7pt}
+\setlength{\headheight}{0mm}
+\setlength{\headsep}{30mm}
+\setlength{\footskip}{15mm}
+\setlength{\textheight}{22.2cm}
+\setlength{\textwidth}{162mm}
+\setlength{\parindent}{0mm}
+
+\ifgross
+\@setplength{toaddrvpos}{33mm}
+\@setplength{toaddrwidth}{78mm}
+\@setplength{toaddrheight}{47mm}
+\fi
+
+\pagestyle{headings}
+
+\renewcommand{\baselinestretch}{1.1}
+\renewcommand*{\raggedsignature}{\raggedright}
+
+\def\grau{0.5}
+
+\KOMAoptions{%
+  pagenumber=footleft,
+  refline=narrow,
+  fromrule=false,
+  backaddress=plain,
+  numericaldate=true,
+  parskip=half,
+  enlargefirstpage=true
+}
+
+\ifgross
+\KOMAoptions{%
+foldmarks=off
+}
+\fi
+
+\setkomafont{subject}{\normalfont\normalcolor}
+
+% Definition neuer Felder
+\newkomavar[Fakultaet]{fakultaet}
+\newkomavar[Fachgruppe]{fachgruppe}
+\newkomavar[Titel]{titel}
+\newkomavar[Verfasser]{verfasser}
+\newkomavar[Postanschrift]{anschrift}
+\newkomavar[Besucheradresse]{besucheradresse}
+
+\date{}
+\newcommand{\datum}[1]{\ifthenelse{\equal{#1}{}}{}{\AtBeginDocument{\renewcommand{\today}{#1}}}}
+\newcommand{\betreff}[1]{\setkomavar{subject}{\textbf{#1}}}
+\newcommand{\anrede}[1]{\opening{#1}}
+\newcommand{\@gruss}[2]{\ifthenelse{\equal{#2}{}}{\setkomavar{fromname}{\usekomavar{titel}\usekomavar{verfasser}}}{\setkomavar{fromname}{#2}}\closing{#1\vspace{3mm}}}
+\newcommand{\@sgruss}[2]{\ifthenelse{\equal{#2}{}}{\setkomavar{fromname}{\usekomavar{titel}\usekomavar{verfasser}}}{\setkomavar{fromname}{#2}}\closing{#1\\ \@unterschrift\\ \vspace{-1.6cm}}}
+\newcommand\gruss[2]{\@gruss{#1}{#2}}
+\WithSuffix\newcommand\gruss*[2]{\@sgruss{#1}{#2}}
+\newenvironment{brief}[1]{\AllLogos\begin{letter}{#1}}{\end{letter}}
+\newcommand{\anlage}[1]{\setkomavar*{enclseparator}{Anlage}\encl{#1}}
+\newcommand{\anlagen}[1]{\setkomavar*{enclseparator}{Anlagen}\encl{#1}}
+\newcommand{\verteiler}[1]{\cc{#1}}
+
+% Informationen zum Absender rechts
+\firsthead{
+
+  \vspace*{2.65cm}
+  \null\hfill
+  \parbox[t][\headheight][t]{5.4cm}{%
+    \raggedright
+    \color[gray]{\grau}%
+    {\sffamily%
+      \scriptsize
+      \usekomavar{fakultaet}\\
+      \usekomavar{fachgruppe}
+
+      \vspace*{.2cm}
+      \textbf{\usekomavar{titel}\\ \usekomavar{verfasser}}
+      
+      \vspace*{.2cm}
+      \usekomavar{anschrift}
+      
+      \vspace*{.2cm}
+      \parbox{5mm}{Tel\@.} \usekomavar{fromphone}\\
+      \parbox{5mm}{Fax} \usekomavar{fromfax}%
+      
+      \vspace*{0.2cm}
+      \usekomavar{fromemail}\\
+      \usekomavar{fromurl}%
+
+      \vspace*{0.2cm}
+      Mittweida, \today
+      
+      
+      }%
+    }%
+  }%
+
+  % Fusszeile
+  \firstfoot{%
+  \null\hfill
+  \parbox[t][7mm][b]{5.4cm}{% 'b' statt 't'
+    \raggedright
+    \color[gray]{\grau}%
+    {\sffamily%
+      \tiny
+      
+      Besucheradresse:\\
+      \usekomavar{besucheradresse}
+      
+    }
+  }
+}
+
+\providecommand{\unterschrift}[1]{\gdef\@@unterschrift{#1}}
+\providecommand{\@unterschrift}{~\vspace{1cm}}
+
+\AtBeginDocument{
+\ifthenelse{\isundefined{\@@unterschrift}}{}{%
+\ifpdfoutput{%
+\renewcommand{\@unterschrift}{%
+\IfFileExists{\@@unterschrift.png}{
+\vspace{2mm}\hspace{0.5em}\includegraphics[width=4cm]{\@@unterschrift.png}}{~\vspace{0.7cm}}}
+}{
+\renewcommand{\@unterschrift}{%
+\IfFileExists{\@@unterschrift.eps}{
+\vspace{2mm}\hspace{0.5em}\includegraphics[width=4cm]{\@@unterschrift.eps}}{~\vspace{0.7cm}}}
+}}}
+
+\providecommand{\qrcode}[1]{\gdef\@@qrcode{#1}}
+
+\AtBeginDocument{ 
+\ifthenelse{\isundefined{\@@qrcode}}{}{%
+\ifpdfoutput{% 
+\IfFileExists{\@@qrcode.png}{
+\AddToShipoutPicture*{\put(494,639){\includegraphics[width=1.8cm]{\@@qrcode.png}}}
+}{}
+}{ 
+\IfFileExists{\@@qrcode.eps}{
+\AddToShipoutPicture*{\put(494,639){\includegraphics[width=1.8cm]{\@@qrcode.eps}}}
+}{}
+}}
+}
+

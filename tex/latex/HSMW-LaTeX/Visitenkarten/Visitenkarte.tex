@@ -1,0 +1,116 @@
+\documentclass[10pt]{scrartcl}
+
+\usepackage{HSMW-Fonts}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{marvosym}
+\usepackage[nolinks]{qrcode}
+\usepackage[crossmark]{ticket}
+% Alternativen: crossmark, circlemark, emptycrossmark, cutmark, boxed
+\unitlength=1mm
+\ticketNumbers{2}{4}
+\ticketSize{85.5}{55}
+\ticketDistance{19}{15}
+
+\newcounter{numcards}
+
+\renewcommand{\ticketdefault}{%
+  \put(-3,1){%
+     \includegraphics[bb = 20 463 253 627, clip, width=82mm]{Hintergrund.pdf}
+  }
+}
+
+\newcommand{\vorderseite}{%
+\hoffset=-16mm
+\voffset=-15mm
+\whiledo{\thenumcards<8}{%
+\stepcounter{numcards}%
+\ticket{%
+  \textcolor{white}{%
+    \put(4.5,48){\scriptsize Prof\@. Dr\@. rer\@. nat\@.}
+    \put(4.5,43.5){\textbf{Klaus Dohmen}}
+    \put(4.5,38){%
+      \begin{minipage}{40mm}
+        \scriptsize Studiendekan \\
+        Angewandte Mathematik
+      \end{minipage}
+    }
+  }
+  \scriptsize
+  \put(4.5,15){%
+  \begin{minipage}{40mm}
+     \textbf{Fakult"at CB}\\
+     \textbf{Fachgruppe Mathematik}\\[-3.5mm]
+     \begin{tabbing}
+     {\small\FAX}\,~\= +49 (0)3727 58-21135 \kill
+     {\small\Telefon} \> +49 (0)3727 58-1135 \\
+     \FAX \> +49 (0)3727 58-21135 \\ 
+     {\small\Mobilefone} \> +49 (0)1573 4756544 \\
+     {\small\Letter} \> dohmen@hsmw.de\\
+     \Info \> www.hsmw.de/dohmen     
+     \end{tabbing}
+  \end{minipage} 
+  }
+  \put(47,15){%
+  \begin{minipage}{26mm}
+     Postfach 14\,57 \\
+     D-09644 Mi{\small$\pi$}weida \\[\medskipamount] \vspace{0.75mm}
+     \color{gray}
+     Besucheradresse:\\
+     Am Schwanenteich 4\,b\\
+     Haus 6 -- Grunert-de-J\'acome-Bau\\
+     1. Etage, Raum $27$
+  \end{minipage}
+  }
+}}}
+
+\newcommand{\rueckseite}{%
+\hoffset=-15mm
+\voffset=-13mm
+\renewcommand{\ticketdefault}{}
+\setcounter{numcards}{0}
+\whiledo{\thenumcards<8}{%
+\stepcounter{numcards}%
+\ticket{%
+  \scriptsize
+  \put(5,47){%
+    \begin{minipage}{80mm}
+      OpenPGP Key:\\
+      0x9B09547A818F2BDE (2015-01-02)
+    \end{minipage}
+  }
+  \put(5,40){% 
+    \begin{minipage}{80mm}
+      \color{gray}
+      Fingerprint: \\  E8A2 70F0 D09A 8E6B 2D36 6671 9B09 547A 818F 2BDE
+    \end{minipage}
+  }
+  \put(5,33){%
+    \begin{minipage}{80mm}
+    Bitmessage: \\ BM-NC14qHX6u4EnPMjetYGjUG4HU6tym8QH
+    \end{minipage} 
+  }
+  \put(5,4){\raisebox{1.6cm}{\qrcode[height=15mm]{http://www.hs-mittweida.de/dohmen}}}
+  \put(43,18){%
+    \color{gray}
+  }
+}}}
+
+\begin{document}
+
+\vorderseite
+\makeatletter
+\@crossmarkfalse
+\@circlemarkfalse
+\@emptycrossmarkfalse
+\@cutmarkfalse
+\@boxedfalse
+\makeatother
+\rueckseite
+
+\end{document}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:

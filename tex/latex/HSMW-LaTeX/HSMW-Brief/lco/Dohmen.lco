@@ -1,0 +1,37 @@
+\ProvidesFile{Dohmen.lco}[%
+  2013/06/08 letter class option]
+
+\RequirePackage{eso-pic}
+
+\LetterOptionNeedsPapersize{Dohmen}{a4}
+\LoadLetterOption{Include}
+
+% Gleiche Einstellungen fuer die Mitglieder einer Fachgruppe
+\setkomavar{fakultaet}{Studiendekan}
+\setkomavar{fachgruppe}{Angewandte Mathematik}
+\setkomavar{fromname}{\color{gray}\tiny\parbox{60mm}{Hochschule Mittweida~\textbar~University of Applied Sciences\\ Postfach 1457 $\cdot$ D-09644 Mittweida}}
+\setkomavar{anschrift}{Technikumplatz 17\\ D-09648 Mittweida}
+
+% Persoenliche Einstellungen
+\setkomavar{titel}{Prof.~Dr.~}
+\setkomavar{verfasser}{Klaus Dohmen}
+\setkomavar{fromurl}{www.hs-mittweida.de/dohmen}
+\setkomavar{fromemail}{dohmen@hs-mittweida.de}
+\setkomavar{fromphone}{+49\,(0)\,37\,27\,/\,58\,-\,11\,35}
+\setkomavar{fromfax}{+49\,(0)\,37\,27\,/\,58\,-\,2\,11\,35}
+\setkomavar{besucheradresse}{%
+  Haus 6, Grunert-de-J\'{a}come Bau\\
+  Raum 6.01.27\\
+  Am Schwanenteich 4b\\
+  09648 Mittweida
+}
+
+% Unterschriftsdatei ohne Extension (png oder eps) fuer die Sternform 
+% der \gruss-Anweisung
+\unterschrift{Dohmen}
+
+% QRCode-Datei ohne Extension (png oder eps)
+\qrcode{Dohmen-QR}
+
+
+

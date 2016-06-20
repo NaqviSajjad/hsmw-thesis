@@ -1,0 +1,866 @@
+\documentclass[parskip,bibtotocnumbered]{scrreprt}
+
+\usepackage{chngcntr}
+\usepackage[multiple]{footmisc}
+
+\usepackage{epigraph}
+
+\deffootnote{1em}{1em}{\textsuperscript{\thefootnotemark}\ }
+\counterwithout{footnote}{chapter}
+
+\usepackage{setspace}
+
+\usepackage{HSMW-Fonts}
+
+\usepackage[all,blueheadings]{HSMW-Logo}
+\usepackage{amsmath,amsthm}
+
+\newtheorem{satz}{Satz}[chapter]
+\renewcommand{\proofname}{Beweis}
+\usepackage{url}
+
+\usepackage[utf8]{inputenc}
+\usepackage{verbatim}
+
+\usepackage[colorlinks,linkcolor=HSMW-Blau,urlcolor=HSMW-Blau,anchorcolor=HSMW-Blau,citecolor=HSMW-Blau,breaklinks,bookmarksnumbered]{hyperref}
+
+\hypersetup
+{
+pdftitle = {LaTeX-Vorlagen},
+pdfsubject = {Hochschule Mittweida},
+pdfauthor = {Klaus Dohmen},
+pdfkeywords = {},
+}
+
+\author{Prof.\ K.\  Dohmen}
+\publishers{\today}
+\title{\Huge \scalebox{1.2}{\LaTeX-Vorlagen}}
+\date{}
+
+\addtocontents{toc}{\protect\onehalfspacing}
+
+\usepackage{xspace}
+
+\newcommand{\fn}[2]{\footnote{#2\label{fn:#1}}\xspace}
+\newcommand*{\fnmark}[1]{\textsuperscript{\normalfont\ref{fn:#1}}\xspace}
+
+\setcounter{tocdepth}{1}
+
+\begin{document}
+ 
+\pagenumbering{roman}
+
+\maketitle
+
+\chapter*{Vorwort}
+
+\epigraph{\em I hope to die before I have to use Microsoft Word.}{Donald E. Knuth}
+
+Zum Verst"andnis dieser Anleitung werden grundlegende \LaTeX{}-Kenntnisse
+vorausgesetzt.  Das Lehrbuch von \textsc{Hedtke}, \textsc{Gippner} und
+\textsc{M"uller} \cite{Hedtke:2009} bietet einen guten und preisg"unstigen
+Einstieg in die \LaTeX{}-Welt.  Weitere Buchempfehlungen finden sich auf der
+Webseite von \textsc{Dante} \cite{Dante:2009}, der Deutschsprachigen
+Anwendervereinigung \TeX{} e.V.\, Empfehlenswert sind auch die Newsgroups
+\texttt{comp.text.tex} (englisch) und \texttt{de.comp.text.tex} (deutsch), wo
+man auf jede Frage nach kurzer Zeit eine oder mehrere qualifizierte Antworten
+erh"alt.
+
+Selbstverst"andlich nehme auch ich Ihre Fragen, Hinweise und Anregungen gerne
+entgegen.  Ich w"unsche Ihnen viel Erfolg und Freude beim Erstellen Ihrer
+Dokumente.
+
+Happy \TeX{}ing!
+
+\newcommand*\backupvskip{}
+\let\backupvskip\chapterheadstartvskip
+\renewcommand*\chapterheadstartvskip{\vspace{-\baselineskip}}
+\tableofcontents
+\let\chapterheadstartvskip\backupvskip
+
+
+\chapter{Graduierungsarbeiten mit HSMW-Thesis}
+\label{grad}
+
+\pagenumbering{arabic}
+
+Die Dokumentenklasse \texttt{HSMW-Thesis} dient der Erstellung von
+Graduierungsarbeiten.  Sie erf"ullt detailgenau die Vorgaben des Corporate
+Designs \cite{cdmanual}.
+
+\section{Verwendung}
+\label{verwendung}
+
+Die Klasse \verb!HSMW-Thesis! kann sowohl mit \LaTeX{}, gefolgt von
+\texttt{dvips}, als auch mit pdf\LaTeX{} genutzt werden.
+
+Die Felder in der Pr"aambel sind entsprechend ihrer Bedeutung auszuf"ullen.
+Sie k"onnen auch leer bleiben, was der Entfernung der entsprechenden Anweisung
+gleichkommt.
+
+Es wird standardm"a"sig das \texttt{babel}-Paket mit der Option
+\texttt{ngerman} geladen.
+\begin{verbatim}
+\documentclass{HSMW-Thesis}
+\Art{Bachelorarbeit}
+\Thema{Beweis der Riemannschen Vermutung}
+\Anrede{Herr} \Vorname{} \Nachname{Musterstudent}
+\Fakultaet{Mathematik/Naturwissenschaften/Informatik}
+\Studiengang{Angewandte Mathematik}
+\Seminargruppe{MA09w1}
+\Erstpruefer{Prof\@. Dr\@. Peter Tittmann}
+\Zweitpruefer{Prof\@. Dr\@. Klaus Dohmen}
+\Tag{1} \Monat{Juni} \Jahr{2015}
+\Anlagen{}
+\Copyright{Dieses Werk ist urheberrechtlich gesch"utzt.}
+\Textsatz{} 
+\Druck{} 
+\Verlag{} 
+\ISBN{}
+
+\begin{document}
+
+\begin{Referat}
+% Referat
+\end{Referat}
+
+\begin{Vorwort}
+% Vorwort
+\end{Vorwort}
+
+\Hauptteil
+% Diese Anweisung nicht entfernen!
+
+\chapter{Einleitung}
+
+\Anhang
+
+\begin{thebibliography}{99}
+% Literaturangaben
+\end{thebibliography}
+
+\end{document}
+\end{verbatim}
+Per \verb! pdflatex -shell-escape <Dateiname> ! erh"alt man nun aus der
+Quelldatei ein druckfertiges PDF-Dokument.  Die Option
+\,\verb!-shell-escape!\, kann in der jeweils verwendeten \LaTeX{}-Umgebung
+voreingestellt werden.  Diese Option und das Programm \texttt{makeindex}
+werden ben"otigt, um das Abk"urzungs- und das Stichwortverzeichnis sowie
+gegebenenfalls ein Glossar automatisch zu generieren.  Hierzu ist es
+erforderlich, dass der Dokumentenklasse die Optionen {\ttfamily
+  no"-men"-cla"-ture}, \texttt{index} bzw\@. \texttt{glossary} "ubergeben
+werden.
+
+Abk"urzungen k"onnen mit
+\verb!\nomenclature{!\emph{Abk"urzung\/}\verb!}{!\emph{Bedeutung\/}\verb!}!
+und Stichw"orter mit \verb!\index{!\emph{Stichwort\/}\verb!}!  in das
+Abk"urzungs- bzw\@. Stichwortverzeichnis aufgenommen werden.  Zur korrekten
+Wiedergabe der Seitenzahlen sind in der Regel zwei \LaTeX{}-L"aufe
+erforderlich.  Weitere Informationen k"onnen den Dokumentationen der Pakete
+{\ttfamily no"-mencl} (Abk"urzungsverzeichnis) und \texttt{makeidx}
+(Stichwortverzeichnis) entnommen werden.  Man beachte, dass diese Pakete bei
+Angabe der entsprechenden Optionen aus Abschnitt \ref{Optionen} automatisch
+geladen werden, ebenso wie das Paket \texttt{glossaries}.  Eine Eintragung in
+das Glossar erfolgt durch
+\verb!\newglossaryentry{!\emph{Label\/}\verb!}{name=!\emph{Begriff}\verb!,!
+  \verb!description={!\emph{Beschreibung}\verb!}}!  und die anschlie"sende
+Ver"-wendung des Labels, z.B\@. per \verb!\gls{!\emph{Label\/}\verb!}!.
+
+Mit der Anweisung \verb!\Firmenlogo{\put(x-coord,y-coord){...}}!  in der
+Pr"aambel des Dokumentes kann ein zus"atzliches Firmenlogo auf der Titelseite
+untergebracht werden.
+
+\section{Optionen}
+\label{Optionen}
+
+Die Dokumentenklasse wird mit
+\verb!\documentclass[!\emph{Optionen}\verb!]{HSMW-Thesis}! geladen, wobei
+folgende Optionen angegeben werden k"onnen:
+
+\begin{labeling}{\texttt{tablecaptionabove~\,}}
+
+\item[\texttt{draft}] Automatische Zeilennummerierung und Anzeige der Labels
+in Referenzen.  Es werden nur der eigentliche Text (ohne Vorwort) und das
+Literaturverzeichnis gesetzt.
+
+\item[\texttt{english}] F"ur englischsprachige Graduierungsarbeiten.  Das
+\texttt{babel}-Paket wird mit der Option \texttt{english} geladen.
+
+\item[\texttt{hypertext}] Erzeugung eines PDF-Dokumentes mit Hyperlinks
+
+\item[\texttt{oneside}] Einseitiges Layout
+
+\item[\texttt{noromanprefix}] "Uberschriften im Vorspann ohne vorangestellte
+r"omische Ziffer
+
+\item[\texttt{smallromans}] Paginierung im Vorspann mit kleinen r"omischen
+Ziffern.  Die Paginierung beginnt mit dem Inhaltsverzeichnis auf Seite v.
+Diese Option ist zu empfehlen, falls sich eines der Verzeichnisse im Vorspann
+oder das Vorwort "uber mehr als eine Seite erstreckt.
+
+\item[] Mit \texttt{smallromans=1} beginnt das Inhaltsverzeichnis auf Seite i.
+Auch andere Anfangszahlen sind m"oglich.
+
+\item[\texttt{classictoc}] Hierarchisches Layout des Inhaltsverzeichnisses
+
+\item[\texttt{noseplists}] Abbildungs- und Tabellenverzeichnis auf derselben
+Seite
+
+\item[\texttt{nofigures}] Kein Abbildungsverzeichnis
+
+\item[\texttt{notables}] Kein Tabellenverzeichnis
+
+\item[\texttt{tablesfirst}] Tabellenverzeichnis vor dem Abbildungsverzeichnis
+
+\item[\texttt{nomenclature}] Abk"urzungsverzeichnis
+
+\item[\texttt{norefpage}] Keine Seitenzahlen im Abk"urzungsverzeichnis
+
+\item[\texttt{counttables}] In den bibliografischen Angaben wird zus"atzlich
+die Anzahl der Tabellen ausgewiesen.
+
+\item[\texttt{minus}] Minuszeichen als Trennzeichen in Gleitumgebungen
+
+\item[\texttt{tablecaptionabove}] Beschriftung oberhalb der Abbildung
+bzw\@. Tabelle
+
+\item[\texttt{openbib}] Offenes Layout f"ur das Literaturverzeichnis
+
+\item[\texttt{index}] Stichwortverzeichnis
+
+\item[\texttt{glossary}] Glossar
+
+\item[\texttt{bigheadings}] Gr"o"sere Kapitel"uberschriften
+
+\item[\texttt{smallheadings}] Kleinere Kapitel"uberschriften (nur bei
+Pr"asentationen)
+
+\item[\texttt{texnote}] Hinweis in den bibliografischen Angaben, dass das
+Dokument mit \LaTeX{} erzeugt wurde
+
+\item[\texttt{sansmath}] Mathematik-Symbole in serifenloser Schrift
+ 
+\item[\texttt{thmbelow}] Zeilenvorschub und vertikaler Zwischenraum nach
+Theorem-""\"ahn"-lichen Umgebungen
+
+\item[\texttt{thmcolon}] Nummerierungen von Theorem-"ahnlichen Umgebungen
+enden mit einem Doppelpunkt.
+
+\item[\texttt{thmpoint}] Nummerierungen von Theorem-"ahnlichen Umgebungen
+enden mit einem Punkt.
+
+\item[\texttt{leqno}] Linksseitige Nummerierung mathematischer Gleichungen
+
+\item[\texttt{fleqn}] Linksseitige Ausrichtung mathematischer Gleichungen
+
+\item[\texttt{Eid}] Eidesstattliche Versicherung
+
+\item[\texttt{150}] Jubil"aumslogo
+\end{labeling}
+
+Die Pakete \verb!amsmath!, \verb!amssymb! und \verb!amsthm! werden automatisch
+geladen.  Folgende Theorem-"ahnliche Umgebungen werden durch die
+Dokumentenklasse \verb!HSMW-Thesis! vordefiniert:
+\begin{center}
+\begin{tabular}{llll}
+\texttt{theorem} & \texttt{hilfssatz} & \texttt{satz} & \texttt{folgerung} \\
+\texttt{corollary} & \texttt{lemma} & \texttt{festlegung} & \texttt{definition} \\
+\texttt{beispiel} & \texttt{example} & \texttt{bemerkung} & \texttt{remark}
+\end{tabular}
+\end{center}
+Hinzu kommen die Sternvarianten \verb!theorem*!, \verb!satz*!, usw., bei denen
+die fortlaufende Nummerierung unterdr"uckt wird.  Au"ser\-dem stehen f"ur
+Beweise die Umgebungen \verb!beweis! und \verb!proof!, die beide ein
+optionales Argument akzeptieren, zur Verf"ugung.
+
+\chapter{Pr"asentationen mit HSMW-Beamer}
+\label{HSMW-Beamer}
+
+Mit \texttt{HSMW-Beamer} k"onnen Pr"asentationen unter Verwendung des
+\LaTeX/Beamer-Paketes entsprechend den CD-Vorgaben erstellt werden.
+
+\section{Verwendung}
+
+Die Verwendung von \verb!HSMW-Beamer!  ist nur mit pdf\LaTeX{} m"oglich.
+Allgemein wird die Nutzung des Beamer-Paketes in \cite{Tantau:2007} und
+\cite{Voss:2009b} beschrieben.
+
+Das folgende Beispiel zeigt die Verwendung von \verb!HSMW-Beamer!.  Die
+Stilvorlage wird mit \verb!\usetheme{Mittweida}! im Vorspann eines
+\LaTeX/Beamer- Dokumentes aktiviert.  Standardm"a"sig wird das Paket
+\texttt{babel} mit den Optionen \texttt{english} und \texttt{ngerman} geladen.
+\begin{verbatim}
+\documentclass{beamer}
+
+\usetheme{Mittweida}
+
+\author{Name des Vortragenden}
+\title{Titel des Vortrags}
+\subtitle{Untertitel}
+\institute{Instituts- oder Fakult"atsbezeichnung}
+\date{Datum}
+
+\begin{document}
+
+\maketitle
+
+\begin{frame}{Erste Folie}
+...
+\end{frame}
+
+...
+\end{document}
+\end{verbatim}
+Die Anweisungen \verb!\author!, \verb!\title! und \verb!\institute!
+akzeptieren je ein optionales Argument, mit dem eine Kurzform der
+entsprechenden Eintr"age festgelegt werden kann.
+
+Eine absolute Positionierung ist mit der \verb!textblock!-Umgebung m"oglich:
+\begin{verbatim}
+\begin{textblock}{Breite}(x-Koordinate,y-Koordinate)
+...
+\end{textblock}
+\end{verbatim}
+Die Breite der Box sowie deren $x$- und $y$-Koordinate werden prozentual
+angegeben.  Die Koordinaten beziehen sich auf die obere linke Ecke der Box.
+Koordinatenursprungspunkt ist die obere linke Ecke des Bildschirms.
+Beispielsweise erzeugt
+\begin{verbatim}
+\begin{textblock}{20}(50,50)
+...
+\end{textblock}
+\end{verbatim}
+eine Box, die 20\,\% der horizontalen Breite in Anspruch nimmt und deren obere
+linke Ecke sich in der Mitte des Bildschirms befindet.
+
+Eine relative Positionierung kann mit
+\verb!\put(x-Differenz,y-Differenz){...}! erfolgen.
+
+\section{Optionen}
+
+Der \verb!HSMW-Beamer!-Stilvorlage kann in der \verb!\usetheme!-Anweisung eine
+Liste von Optionen "ubergeben werden.  Folgende Optionen stehen zur
+Verf"ugung:
+
+\medskip
+\begin{labeling}{\texttt{titlegraphic=Bilddatei}~\,}
+\item[\texttt{Fakultaet\/$n$}] Layout entsprechend der Fakult"at $n$
+($n=1,\dots,5$)
+
+\item[\texttt{CB}] \"aquivalent zur Option \texttt{Fakultaet2}
+
+\item[\texttt{plain}] schlichtes Layout entsprechend CD-Vorgabe
+
+\item[\texttt{titlegraphic=none}] Kein Hintergrundbild auf der Titelseite
+(Abk.: \texttt{notitlegraphic})
+
+\item[\texttt{titlegraphic=Bilddatei}] \texttt{Bilddatei} als Hintergrundbild
+auf der Titelseite
+
+\item[\texttt{titlepage=none}] Keine Titelseite (Abk.: \texttt{notitlepage})
+
+\item[\texttt{titlepage=Bilddatei}] \texttt{Bilddatei} als Titelseite mit
+vorhandenen CD-Elementen
+
+\item[\texttt{slogan=\{Text\}}] Festlegung des Slogans auf der Titelseite.
+
+\item[\texttt{english}] F"ur englischsprachige Pr"asentationen.  Die
+\verb!babel!-Sprachoption \verb!english! wird aktiviert.
+
+\item[\texttt{colthm}] Farbige Definitionen, S\"atze, Beweise usw.
+
+\item[\texttt{colmath}] Farbige Formeln
+
+\item[\texttt{contents}] Inhaltsverzeichnis im HSMW-Panel\footnote{Es wird
+immer die Langform der Abschnitts"uberschriften angezeigt.};
+\verb!\nextframenocontents! unterdr"uckt das Inhaltsverzeichnis auf der
+n"achsten Folie
+
+\item[\texttt{navigation}] Aktivierung der Navigationsbuttons im HSMW-Panel
+
+\item[\texttt{totalpages}] Angabe der Gesamtzahl der Seiten
+
+\item[\texttt{prefix=\{Text\}}] Pr"afix f"ur die Paginierung
+
+\item[\texttt{delimiter=\{Text\}}] Trennsymbol zwischen Paginierung und
+Gesamtseitenzahl
+
+\item[\texttt{progressbar}] Fortschrittsbalken f"ur Frames
+
+\item[\texttt{progressbar=slide}] Fortschrittsbalken f"ur Overlays
+\end{labeling}
+S"amtliche Optionen wirken global.  F"ur die Optionen \verb!colthm!,
+\verb!colmath! und \verb!progressbar! gibt es lokale Varianten in Form einer
+gleichnamigen Umgebung.
+
+Der Umgebung \verb!progressbar! kann optional das Argument \verb!slide!
+"ubergeben werden.  Alternativ kann der Befehl \verb!\nextframeprogressbar!
+verwendet werden, der ebenfalls "uber das optionale Argument \verb!slide!
+verf"ugt.
+
+Durch Angabe der Option \verb!handout! in
+\verb!\documentclass[handout]{beamer}!  wird die Erstellung einer speziellen
+Handout-Version veranlasst.  In der Voreinstellung der {\ttfamily
+HSMW-""Bea"-mer}""-Stilvorlage werden zwei Folien auf eine DIN-A4-Seite
+gedruckt.  Dabei wird ein schlichtes, druckerfreundliches Layout entsprechend
+der Option \verb!plain! verwendet.
+
+\section{Pr"asentationen mit zwei Beamern}
+
+Die \verb!HSMW-Beamer!-Klasse unterst"utzt die Nutzung von zwei unabh"angigen
+Bea\-mern, z.B\@. f"ur bilinguale Pr"asentationen oder Pr"asentationen, in
+denen die aktuelle und die vorherige Folie gleichzeitig gezeigt werden.  Die
+Projektionsbilder der beiden Beamer werden dabei nebeneinander auf dem
+Notebook des Dozenten dargestellt, was u.a\@. auch f"ur nicht sichtbare
+Notizen genutzt werden kann.  Mehr dazu in einem eigenen Artikel
+\cite{Dohmen:2010b}.
+
+An der HSMW ist der H"orsaal 2-205 mit zwei fest installierten Beamern
+ausgestattet.
+
+\section{Textform}
+
+\vspace{-\bigskipamount} Mit Hilfe des Paketes \verb!beamerarticle! ist es
+m"oglich, aus einer Pr"asentation, die mit der LaTeX/Beamer-Klasse erstellt
+wurde, ein herk"ommliches \LaTeX-Textdokument zu erzeugen.  Die Vorgehensweise
+wird in \cite{Tantau:2007} und \cite{Voss:2009b} ausf"uhrlich beschrieben.
+"Ublicherweise kommen hierbei die \LaTeX{}-Standardklassen und die
+KOMA-Script-Klassen zum Einsatz.
+
+Die \verb!HSMW-Thesis!-Klasse wurde so konzipiert, dass sie mit
+\verb!beamerarticle! gemeinsam genutzt werden kann.  Dazu ist in der Pr"aambel
+des Dokumentes die \verb!beamer!-Klasse gegen die \verb!HSMW-Thesis!-Klasse
+auszutauschen und zus"atzlich das Paket \verb!beamerarticle! zu laden.
+Gegebenenfalls sind Eintragungen in den Feldern der \verb!HSMW-Thesis!-Klasse
+vorzunehmen.  Auf diese Weise wird automatisiert eine schriftliche
+Ausarbeitung generiert: \vspace{-.5\baselineskip}
+\begin{verbatim}
+\documentclass{HSMW-Thesis} 
+
+\usepackage{beamerarticle}
+
+\Art{Seminarvortrag}
+\Thema{Genetische Algorithmen}
+...
+
+\begin{document}
+
+\maketitle
+
+\begin{frame}{Einf"uhrung}
+...
+\end{frame}
+
+...
+\end{document}
+\end{verbatim}
+
+
+\chapter{Pr"asentationen mit HSMW-QuickTalk}
+\label{HSMW-QuickTalk}
+
+Mit \verb!HSMW-QuickTalk!  kann aus einem gew"ohnlichen Text"-do"-ku"-ment
+automatisiert eine PDF-""Pr"a"-sen"-ta"-tion in Anlehnung an die Vorgaben des
+Corporate Designs erstellt werden.
+
+\section{Verwendung}
+\label{HSMWQuickieGrad}
+
+Die Verwendung von \verb!HSMW-QuickTalk! ist nur mit pdf\LaTeX{} m"oglich.
+Das Paket ist kompatibel mit den Standardklassen und den KOMA-Script-Klassen.
+Es muss lediglich die Anweisung \verb!\usepackage{HSMW-QuickTalk}! zur
+Pr"aambel hinzugef"ugt werden.  Dabei ist da\-rauf zu achten, dass
+\texttt{HSMW-QuickTalk} vor allen anderen Paketen geladen wird.
+
+Das Einf"ugen zus"atzlicher Folien ist mit der Umgebung \verb!slide! m"oglich.
+Die "Uberschrift kann als optionales Argument "ubergeben werden.
+
+\section{Optionen}
+
+Das Paket \texttt{HSMW-QuickTalk} akzeptiert folgende Optionen:
+
+\begin{labeling}{\texttt{delimiter=\{Text\}}\,~}
+\item[\texttt{Autor=\{Text\}}] Autor der Pr"asentation
+
+\item[\texttt{Titel=\{Text\}}] Titel der Pr"asentation
+
+\item[\texttt{Datum=\{Text\}}] Datum der Pr"asentation
+
+\item[\texttt{Fakultaet\/$n$}] Layout entsprechend der Fakult"at $n$
+($n=1,\dots,5$)
+
+\item[\texttt{CB}] \"aquivalent zur Option \texttt{Fakultaet2}
+
+\item[\texttt{colmath}] Farbige Formeln im Text und in AMS\TeX-Umgebungen
+
+\item[\texttt{footnotes}] Fu"snoten werden angezeigt.
+
+\item[\texttt{notitlepage}] Keine Titelseite
+
+\item[\texttt{abstract}] Anzeige der Zusammenfassung
+
+\item[\texttt{nonavigation}] Deaktivierung der Navigationsbuttons
+
+\item[\texttt{totalpages}] Angabe der Gesamtzahl der Seiten
+
+\item[\texttt{prefix=\{Text\}}] Pr"afix f"ur die Paginierung
+
+\item[\texttt{delimiter=\{Text\}}] Trennsymbol zwischen Paginierung und
+Gesamtzahl der Seiten
+
+\item[\texttt{nosans}] Keine automatische Umschaltung auf serifenlose Schrift
+\end{labeling}
+
+\chapter{Konferenzposter mit HSMW-Poster}
+
+Mit \verb!HSMW-Poster! k"onnen wissenschaftliche Poster im
+Querformat\footnote{Ich w"urde mich sehr dar"uber freuen, wenn jemand der
+  Klasse \texttt{\footnotesize HSMW-Poster} eine Option f"ur eine Darstellung
+  im Hochformat hinzuf"ugen w"urde.} in Anlehnung an das Corporate Design
+erstellt werden.
+
+\section{Verwendung}
+
+Die Verwendung der Dokumentenklasse \verb!HSMW-Poster! ist nur mit pdf\LaTeX{}
+m"oglich.  Die Einbindung des Paketes \verb!HSMW-Fonts! (siehe Abschnitt
+\ref{hsmwfonts} auf Seite \pageref{hsmwfonts}) wird empfohlen.
+Standardm"a"sig wird das Paket \verb!babel! mit den Optionen \verb!english!
+und \verb!ngerman!  geladen. Es stehen s"amtliche Anweisungen aus dem
+Beamer-Paket zur Verf"ugung.  Die Umgebung \verb!poster! ersetzt die
+\verb!frame!-Umgebung und wird im Regelfall nur einmal verwendet.
+\begin{verbatim}
+\documentclass[A1]{HSMW-Poster}
+
+% \usepackage{HSMW-Fonts} 
+
+\author{Klaus Dohmen}
+\title{Improved Bonferroni Inequalities via Graphs and Abstract Tubes} 
+\conference{European Conference on Combinatorics, Graph Theory %
+  and Applications}
+\date{Oct 5--9, 2005}
+
+\begin{document}
+
+\begin{poster}
+...
+\end{poster}
+
+\end{document}
+\end{verbatim}
+
+\section{Optionen}
+
+Die Dokumentenklasse \texttt{HSMW-Poster} akzeptiert folgende Optionen:
+
+\begin{labeling}{\texttt{Fakultaet $3$}~\,}
+
+\item[\texttt{A\/$n$}] DIN-Gr"o"se des Posters ($n=0,\dots,4$)
+
+\item[\texttt{Fakultaet\/$n$}] Layout entsprechend der Fakult"at $n$
+($n=1,\dots,5$)
+
+\item[\texttt{CB}] \"aquivalent zur Option \texttt{Fakultaet2}
+
+\item[\texttt{colthm}] Farbige Definitionen, S\"atze, Beweise usw.
+
+\item[\texttt{colmath}] Farbige Formeln
+
+\end{labeling}
+
+\section{Drucken}
+
+Hat man keinen Drucker zur Verf"ugung, der bis zum Rand druckt, so muss die
+Ausgabedatei vor dem Drucken skaliert werden.  Hierzu kann beispielsweise das
+Linux-\-Komman\-do\-zei\-len\-tool \verb!pdfnup! verwendet werden.  Bei
+A4-Folien erh"alt man mit
+\begin{verbatim}
+pdfnup --nup 1x1 --trim "-0.5cm -0.5cm -0.5cm -0.5cm" \ 
+  --outfile out.pdf source.pdf
+\end{verbatim}
+gute Resultate. Die Ma"se sind entsprechend dem jeweiligen Drucker anzupassen.
+
+\appendix
+
+\addtocontents{toc}{\protect\setcounter{tocdepth}{0}}
+\addtocontents{toc}{\protect\medskip}
+\addtocontents{toc}{\protect\contentsline{chapter}{Anhang}{}{}}
+
+\chapter{Weitere Klassen und Pakete}
+
+\section{HSMW-Brief}
+\label{briefinst}
+
+Die Klasse \texttt{HSMW-Brief} dient der Erstellung von Dienstbriefen.  Einen
+eigenen Briefkopf erh"alt man durch Umbenennung und "Anderung der Datei
+\verb!Dohmen.lco!.  
+
+Die Klasse \texttt{HSMW-Brief} l"adt das Paket \texttt{babel} mit den Optionen
+\texttt{english} und \texttt{ngerman}.  Sie nutzt, wenn m"oglich, die
+Hausschrift UniversLT (siehe Abschnitt \ref{hsmwfonts}), sonst Helvetica.  Das
+nachfolgende Beispiel zeigt die Verwendung der Klasse \verb!HSMW-Brief!:
+\begin{verbatim}
+\documentclass[Dohmen]{HSMW-Brief}
+
+\datum{}
+
+\begin{document}
+
+\begin{brief}{Empf"angeradresse}
+\betreff{Betreffzeile}
+\anrede{Sehr geehrte ...}
+...
+\gruss*{Mit freundlichen Gr"u"sen}{}
+%\anlage{} oder \anlagen{}
+%\verteiler{}
+\end{brief}
+
+\end{document}
+\end{verbatim}
+Die Sternvariante der \verb!\gruss!-Anweisung f"ugt die eigene Unterschrift als Bild (\texttt{png} oder \texttt{eps}) ein.
+F"ur englischsprachige Briefe stehen \verb!\encl{}! und \verb!\cc{}! zur Verf"ugung.
+
+Bis auf die selbsterkl"arenden Optionen \texttt{extralogos},
+\texttt{noextralogos}, \texttt{moreextralogos}, \texttt{150}, \texttt{C4},
+\texttt{DL}, \texttt{qrcode} und \texttt{noqrcode} werden s"amtliche
+Klassenoptionen an die nachgeladene KOMA-Script-Klasse {\ttfamily scr"-lettr2}
+weitergereicht.  N"aheres hierzu findet man in der Anleitung zu KOMA-Script
+\cite{Kohm:2008}.  Die Hochschulfarbe steht als \texttt{HSMW-Blau} zur
+Verf"ugung.
+
+\section{HSMW-Worksheet}
+\label{worksheetinst}
+
+Die Dokumentenklasse \texttt{HSMW-Worksheet} dient der Erstellung von
+Aufgabenbl"attern mit L"osungen.  Die Ausgabe der L"osungen kann durch eine
+Option gesteuert werden.
+
+Empfehlenswert ist die zus"atzliche Installation des Paketes
+\texttt{HSMW-Fonts} (siehe Abschnitt \ref{hsmwfonts} auf Seite
+\pageref{hsmwfonts}).  Das nachfolgende Beispiel zeigt die Nutzung der Klasse
+\texttt{HSMW-Worksheet}:
+\begin{verbatim}
+\documentclass[solutions]{HSMW-Worksheet}
+
+\Fakultaet{Fakult\"at MNI}
+\Dozent{Prof\@. K. Dohmen}
+\Lehreinheit{\"Ubungen zur Diskreten Mathematik}
+\Semester[WS 2012/13]{Wintersemester 2012/13}
+\Nummer{Blatt 11}
+\Thema{Graphen und Netzwerke}
+\Aufgaben{8} % nur fuer Klausuren
+
+\begin{document}
+
+\begin{aufgabe}[\stern\ (2 Punkte)]
+Zeigen Sie:
+\begin{teilaufgaben}
+\teilaufgabe Jeder endliche Baum hat mindestens einen Knoten vom Grad 1.
+\teilaufgabe Jeder Baum mit $n$ Knoten besitzt $n-1$ Kanten.
+\end{teilaufgaben}
+\end{aufgabe}
+
+\loesungskasten[L"osung zu a):]{4cm} % nur fuer Klausuren
+
+\begin{loesung}
+Mit vollst"andiger Induktion nach der Anzahl der Knoten.
+\end{loesung}
+
+\begin{aufgabe}[~~(8 Punkte) \Zusatzblatt]
+Wahr oder falsch? Begr"unden Sie Ihre Antwort!
+\begin{wahrfalsch}[i)]
+  \wf{Es gibt einen zusammenh"angenden Graphen mit 21 Knoten und 19 Kanten.}
+  \wf{Jeder 4-f"arbbare Graph ist planar.}
+  \wf{Jeder planare Graph besitzt die chromatische Zahl~4.}
+\end{wahrfalsch}
+\end{aufgabe}
+
+\end{document}
+\end{verbatim}
+Die Dokumentenklasse \texttt{HSMW-Worksheet} verf"ugt "uber folgende Optionen:
+\begin{labeling}{\texttt{solutions=multicols}~\,}
+ \item[\texttt{solutions}] separate Seite mit L"osungen
+ \item[\texttt{solutions=columns}] separate, zweispaltige Seite mit L"osungen
+ \item[\texttt{solutions=insitu}] L"osungen in situ
+ \item[\texttt{hints}] separate Seite mit L"osungshinweisen
+ \item[\texttt{hints=columns}] separate, zweispaltige Seite mit
+L"osungshinweisen
+ \item[\texttt{hints=insitu}] L"osungshinweise in situ
+ \item[\texttt{seplines}] Ausgabe von mit \verb!\sepline! erzeugten
+Trennlinien
+ \item[\texttt{sansserif}] Aufgabentexte und Formeln in serifenloser Schrift
+ \item[\texttt{hypertext}] Erzeugung eines PDF-Dokumentes mit Hyperlinks
+ \item[\texttt{draft}] Unterdr"uckung des Hochschullogos
+ \item[\texttt{english}] f"ur englischsprachige "Ubungsbl"atter (keine
+Klausuren)
+\end{labeling} Weitere Optionen werden an die Dokumentenklasse \verb!scrreprt!
+weitergereicht.  Zur Strukturierung des Aufgabenblattes stehen folgende
+Umgebungen zur Verf"ugung:
+\begin{center}
+\begin{tabular}{llll} \texttt{aufgabe} & \texttt{teilaufgaben} &
+\texttt{loesung} & \texttt{loesungshinweis} \\ \texttt{exercise} &
+\texttt{subexercises} & \texttt{solution} & \texttt{hint} \\
+\end{tabular}
+\end{center} Hinzu kommen die Sternvarianten \verb!aufgabe*!, \verb!loesung*!,
+usw., bei denen eine evtl\@. vorhandene Nummerierung unterdr"uckt wird.  Die
+Umgebungen \texttt{teilaufgaben} und {\ttfamily sub"-exer"-ci"-ses}
+akzeptieren ein optionales Argument entsprechend dem \texttt{enumerate}-Paket.
+Innerhalb dieser Umgebungen stehen die Gliederungsbefehle \verb!\teilaufgabe!
+und \verb!\subexercise! zur Verf"ugung, die ebenfalls ein optionales Argument
+entsprechend dem \verb!enumerate!-Paket (vgl\@. \verb!\item!) akzeptieren.
+Mit der Option \verb!skip! k"onnen Gliederungsnummern in den Teilaufgaben
+"ubersprungen werden.  Geht der ersten Teilaufgabe kein Text voraus, so sorgt
+\verb!\phantomtext! f"ur den richtigen Zeilenabstand.  Durch ein optionales
+Argument kann dieser als Vielfaches von \verb!\baselineskip! explizit
+angegeben werden (Vorgabe: 1.63).
+
+F"ur bedingtes Kompilieren stehen die \verb!\if!-Anweisungen
+\verb!\ifsolutions!, \verb!\ifnosolutions!, \verb!\ifhints!,
+\verb!\ifnohints!, \verb!\ifdraft!, \verb!\ifhypertext!, \verb!\ifgerman! und
+\verb!\ifenglish! zur Verf"ugung.  Der Befehl
+\verb!\translate{!\textit{deutscher Text}~\,\verb!>>!~\textit{englischer
+    Text}\verb!}! f"ugt je nachdem, ob die Option \verb!english! gesetzt ist
+oder nicht, den englischen bzw\@. den deutschen Text ein.  Mit Hilfe der
+\texttt{comment}-Um"-ge"-bung k"onnen ganze Textbl"ocke auskommentiert werden.
+
+Die Mathematik-Pakete \texttt{amsmath}, \texttt{amssymb} und \texttt{amsthm}
+der American Mathematical Society werden von der Dokumentenklasse {\ttfamily
+  HSMW-""Work"-sheet} standardm"a"sig hinzugeladen.  Unter Verwendung des
+\texttt{multicol}-Paketes, welches ebenfalls standardm"a"sig hinzugeladen
+wird, k"onnen Aufgaben mehrspaltig gesetzt werden.
+
+\section{HSMW-Faltblatt}
+
+Mit der Dokumentenklasse \texttt{HSMW-Faltblatt} k"onnen Faltbl"atter im
+DIN-A3- und DIN-A4-Format erstellt werden.  Diese bestehen aus sechs logischen
+Seiten, die auf die Vorder- und R"uckseite eines Blattes gedruckt werden.  Auf
+Seite~1 erscheint das Hochschullogo. Weitere Grafiken k"onnen mit
+\verb!\AddToBackground{!\emph{Seitennummer}\verb!}{!\emph{\LaTeX-Picture-Anweisungen}\verb!}!
+an beliebiger Stelle positioniert werden.  Optionen werden an die
+\texttt{article}- und \texttt{leaflet}-Klasse weitergereicht.  Folgende
+weitere Optionen werden akzeptiert:
+\begin{labeling}{\texttt{blueheadings}~\,}
+ \item[\texttt{blueheadings}] Blaue Abschnitts"uberschriften\fn{2}{Die Farbe
+der "Uberschriften wird als \texttt{\small HSMW-Blau} verf"ugbar gemacht.}
+ \item[\texttt{nofoldmark}] Keine Faltmarken
+ \item[\texttt{notumble}] R"uckseite um 180\textdegree{} gedreht
+ \item[150] Jubil"aumslogo
+\end{labeling}
+
+\section{HSMW-Logo}
+
+Das Paket \texttt{HSMW-Logo} dient der Erstellung von Dokumenten, die auf der
+Titelseite und evtl\@. allen nachfolgenden Seiten das Hochschullogo tragen.
+Das folgende Minimalbeispiel zeigt die Nutzung des Paketes bei Verwendung der
+KOMA-Script-Klasse \verb!scrartcl!:
+
+\begin{verbatim}
+\documentclass{scrartcl}
+\usepackage{HSMW-Logo}
+\begin{document}
+...
+\end{document}
+\end{verbatim}
+Das Paket \texttt{HSMW-Logo} akzeptiert folgende Optionen:
+\begin{labeling}{\texttt{blueheadings}~\,}
+ \item[\texttt{all}] Logo auf allen Seiten (auf den Folgeseiten etwas kleiner)
+ \item[\texttt{blueheadings}] Blaue Gliederungs"uberschriften bei Nutzung der
+KOMA-Script-Klassen\footnote{Die Farbe der "Uberschriften wird als
+\texttt{\small HSMW-Blau} verf"ugbar gemacht.}
+ \item[150] Jubil"aumslogo 
+\end{labeling}
+
+\section{HSMW-Fonts}
+\label{hsmwfonts}
+
+Die HSMW-Fonts\footnote{Bezugsquelle: siehe \cite{cdmanual}.}  k"onnen mittels
+\texttt{otftotfm} \cite{Kohler:2010} installiert werden:
+\vspace{-.5\baselineskip}
+\begin{verbatim}
+        otftotfm -a -e texnansx UniversLTPro-55Roman.otf \
+                 -fkern -fliga LY1--UniversLTPro-55Roman
+\end{verbatim}
+\vspace{-.5\baselineskip} Entsprechend f"ur die anderen Schriftschnitte der
+HSMW-Fonts.  Hierzu sind in der Regel Administratorrechte erforderlich.
+Au"serdem wird das Archiv \texttt{HSMW-Fonts.tar.gz} ben"otigt, welches im
+\TeX-Ver"-zeich"-nis"-baum entpackt wird.  Nach einer Aktualisierung des
+\TeX-Ver"-zeich"-nis"-bau"-mes stehen die Fonts per
+\verb!\usepackage{HSMW-Fonts}! zur Verf"ugung.
+
+Bei Verwendung der KOMA-Script-Klassen werden entsprechend den Festlegungen
+des Corporate Designs "Uberschriften in Futura und der Flie"stext in Univers
+gesetzt.  Un"-ab"-h"ang"-ig von der verwendeten Klasse kann mit
+\verb!\sffamily! zu Futura und mit \verb!\rmfamily! zu Univers gewechselt
+werden.  Entsprechendes gilt f"ur \verb!\textsf! und \verb!\textrm!.
+
+Das Paket \texttt{HSMW-Fonts} akzeptiert folgende Optionen:
+
+\begin{labeling}{\texttt{blueheadings}~\,}
+ \item[\texttt{blueheadings}] Blaue Gliederungs"uberschriften bei Nutzung der
+KOMA-Script-Klassen und der \texttt{HSMW-Faltblatt}-Klasse\fnmark{2}
+ \item[\texttt{futuralight}] Verwendung der Schriftschnitte \emph{Light} und
+\emph{Book} statt \emph{Book} und \emph{Bold}
+\end{labeling}
+
+\enlargethispage*{1.1\baselineskip}
+
+\textbf{Hinweis:}~\,Die HSMW-Fonts eignen sich nicht zum Setzen mathematischer
+Texte.  Sie sollten daher nicht in Verbindung mit der
+\texttt{HSMW-Thesis}-Klasse verwendet werden.
+
+\renewcommand{\bibname}{Literatur- und Quellenverzeichnis}
+\begin{thebibliography}{11}
+\enlargethispage{\baselineskip}
+\label{LitVZ}
+
+\bibitem{Braune:2006} \textsc{K. Braune, J. Lammarsch, M. Lammarsch}:
+\emph{\LaTeX{} -- Basissystem, Layout, Formelsatz}, Springer-Verlag, Berlin,
+Heidelberg, 2006.
+
+\bibitem{Dante:2009} \textsc{Dante e.V.,} Deutschsprachige Anwendervereinigung
+\TeX{} e.V., URL: \url{http://www.dante.de}, Stand: \today.
+
+\bibitem{Dohmen:2010b} \textsc{K. Dohmen}: \emph{Dual Screen Presentations
+  with the \LaTeX{} Beamer Class under X}, Special Issue on \LaTeX{} Academic
+Workbench, The Prac\TeX{} Journal, 2010, No.~1, 7 S\@., URL:
+\url{http://www.tug.org/pracjourn/2010-1/dohmen/dohmen.pdf}.
+
+\bibitem{Hedtke:2009} \textsc{I. Hedtke}, \textsc{D. Gippner},
+\textsc{R. M"uller}: \emph{Der \LaTeX-Tutor}, Shaker Media, Aachen, 2009.
+
+\bibitem{cdmanual} \textsc{Hochschule Mittweida, AG Internet:} \emph{Das neue
+  CD}, URL: \url{http://www.agi.hs-mittweida.de}, Stand: \today.
+
+\bibitem{Kohler:2010} \textsc{E. Kohler:} \emph{otftotfm Manual}, LCDF Type
+Software, URL: \url{http://www.lcdf.org/type}, Stand: \today.
+
+\bibitem{Kohm:2009} \textsc{M. Kohm}: \emph{KOMA-Script}, CTAN:
+\href{http://mirror.ctan.org/macros/latex/contrib/koma-script}{\texttt{macros/latex/contrib/koma-script}},
+Stand: \today.
+
+\bibitem{Kohm:2008} \textsc{M. Kohm}, \textsc{J.-U. Morawski}:
+\emph{KOMA-Script -- Die Anleitung}, 3. erw\@. Auflage, Lehmanns Media,
+Berlin, 2008.
+
+\bibitem{leaflet} \textsc{R. Niepraschk, W. Schmidt, H. G"a"slein:} \emph{The
+  leaflet document class}, CTAN:
+\href{http://mirror.ctan.org/macros/latex/contrib/leaflet}{\texttt{macros/latex/contrib/leaflet}},
+Stand: \today.
+
+\bibitem{Tantau:2007} \textsc{T. Tantau}: \emph{The beamer class}, CTAN:
+\href{http://mirror.ctan.org/macros/latex/contrib/beamer}{\texttt{macros/latex/contrib/beamer}},
+Stand: \today.
+
+\bibitem{Voss:2009b} \textsc{H. Voss}: \emph{Pr"asentationen mit \LaTeX},
+Lehmanns Media, Berlin, 2009.
+
+\bibitem{Voss:2009c} \textsc{H. Voss}: \emph{Mathematiksatz mit \LaTeX},
+Lehmanns Media, Berlin, 2009.
+
+\end{thebibliography}
+
+\end{document}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:

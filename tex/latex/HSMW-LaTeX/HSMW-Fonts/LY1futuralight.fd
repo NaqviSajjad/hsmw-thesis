@@ -1,0 +1,8 @@
+\DeclareFontFamily{LY1}{futuralight}{}
+\DeclareFontShape{LY1}{futuralight}{m}{n}{ <-> LY1--FuturaLTPro-Light }{}
+\DeclareFontShape{LY1}{futuralight}{sb}{n}{ <-> LY1--FuturaLTPro-Book }{}
+\DeclareFontShape{LY1}{futuralight}{bx}{n}{ <-> LY1--FuturaLTPro-Book }{}
+
+\endinput
+
+

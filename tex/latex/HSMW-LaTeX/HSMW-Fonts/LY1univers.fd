@@ -1,0 +1,11 @@
+\DeclareFontFamily{LY1}{univers}{}
+\DeclareFontShape{LY1}{univers}{m}{n}{ <-> LY1--UniversLTPro-55Roman }{}
+\DeclareFontShape{LY1}{univers}{sb}{n}{ <-> LY1--UniversLTPro-65Bold }{}
+\DeclareFontShape{LY1}{univers}{bx}{n}{ <-> LY1--UniversLTPro-75Black }{}
+\DeclareFontShape{LY1}{univers}{m}{it}{ <-> LY1--UniversLTPro-55Oblique }{}
+\DeclareFontShape{LY1}{univers}{b}{it}{ <-> LY1--UniversLTPro-65BoldOblique }{}
+
+
+\endinput
+
+
